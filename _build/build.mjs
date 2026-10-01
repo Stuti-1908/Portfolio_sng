@@ -4,6 +4,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projects, flagship, certs, moreCerts, owned } from './data.mjs';
 import { mockups } from './mockups.mjs';
+import { ic } from './icons.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const bySlug = Object.fromEntries(projects.map(p => [p.slug, p]));
@@ -67,10 +68,10 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 <link rel="stylesheet" href="${r}assets/css/site.css?v=${V}">
 </head><body>
 <div class="progress"></div>
-<div class="qv" role="dialog" aria-modal="true" aria-label="Project preview"><div class="qv-card"><button class="qv-x" aria-label="Close">✕</button><div class="qv-vis"></div><div class="qv-body"></div></div></div>
+<div class="qv" role="dialog" aria-modal="true" aria-label="Project preview"><div class="qv-card"><button class="qv-x" aria-label="Close">${ic('x')}</button><div class="qv-vis"></div><div class="qv-body"></div></div></div>
 <header class="nav"><div class="wrap">
   <a class="brand" href="${r}index.html"><span class="mark">S</span><span>Stuti Gohil<small>AI Engineer · Global AI Consultant</small></span></a>
-  <div class="nav-tools"><button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button class="burger" aria-label="Menu">☰</button></div>
+  <div class="nav-tools"><button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button class="burger" aria-label="Menu">${ic('menu')}</button></div>
   <nav class="nav-links">${link('index.html', 'Home', 'home')}${link('work.html', 'Work', 'work')}${link('consulting.html', 'Consulting', 'consulting')}${link('credentials.html', 'Credentials', 'credentials')}<a class="cta-pill" href="mailto:${EMAIL}">Hire me</a></nav>
 </div></header>
 <main>${body.replaceAll("{{R}}", r)}</main>
@@ -159,7 +160,7 @@ const home = () => layout({
     <div class="step"><div class="dot">04</div><h4>Ship</h4><p>Deploy, monitor, harden and deliver to the live domain or app store.</p></div>
     <div class="step"><div class="dot">05</div><h4>Hand over</h4><p>Training and documentation until the client runs it themselves.</p></div>
   </div>
-  <div class="solo-note rv"><span style="font-size:24px">✦</span><span>No agency, no team behind the curtain. <b>Every project on this site was delivered by me, solo</b>, for clients in the US, UAE, Europe and India.</span></div>
+  <div class="solo-note rv"><span class="solo-ic">${ic('spark')}</span><span>No agency, no team behind the curtain. <b>Every project on this site was delivered by me, solo</b>, for clients in the US, UAE, Europe and India.</span></div>
 </div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap"><div class="feature rv">
@@ -168,10 +169,10 @@ const home = () => layout({
     <p class="lede">I consult and train leaders across Dubai and Europe on AI, automation and agent systems, and I measure success by how little they need me afterwards.</p>
     <div class="btns" style="margin-top:30px"><a class="btn btn-gold" href="consulting.html">See consulting work <span class="arr">→</span></a></div></div>
   <div class="r">
-    <div class="who"><span class="ic">🎬</span><div><b>Film directors</b><span>Private 11-agent AI system, plus hands-on training</span></div></div>
-    <div class="who"><span class="ic">🏢</span><div><b>Operations managers · Dubai</b><span>AI, automation and agent workflows</span></div></div>
-    <div class="who"><span class="ic">🤝</span><div><b>Welfare group HR team · Dubai</b><span>AI blueprints and team enablement</span></div></div>
-    <div class="who"><span class="ic">🚀</span><div><b>Founders · US</b><span>AI coaching and sales automation platforms</span></div></div>
+    <div class="who"><span class="ic">${ic('film')}</span><div><b>Film directors</b><span>Private 11-agent AI system, plus hands-on training</span></div></div>
+    <div class="who"><span class="ic">${ic('building')}</span><div><b>Operations managers · Dubai</b><span>AI, automation and agent workflows</span></div></div>
+    <div class="who"><span class="ic">${ic('users')}</span><div><b>Welfare group HR team · Dubai</b><span>AI blueprints and team enablement</span></div></div>
+    <div class="who"><span class="ic">${ic('rocket')}</span><div><b>Founders · US</b><span>AI coaching and sales automation platforms</span></div></div>
   </div></div></div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap">
@@ -212,10 +213,10 @@ const caseStudy = (p, i) => {
   <div class="challenge">${p.challenges.map((c, k) => `<div><i>CHALLENGE 0${k + 1}</i><p>${c}</p></div>`).join('')}</div></div></div></section>
 
 <section class="cs-sec" id="owned"><div class="wrap cs-2"><div><span class="eyebrow">My role</span><h2 class="h-m rv" style="margin-top:18px">What I owned, personally</h2><p class="lede rv" style="margin-top:18px">${p.role}. No team behind me: every item below was mine.</p></div>
-  <ol class="owned">${owned[p.slug].map((o, k) => `<li class="rv"><span>${String(k + 1).padStart(2, '0')}</span>${o}<em>✓</em></li>`).join('')}</ol></div></section>
+  <ol class="owned">${owned[p.slug].map((o, k) => `<li class="rv"><span>${String(k + 1).padStart(2, '0')}</span>${o}<em>${ic('check')}</em></li>`).join('')}</ol></div></section>
 
 <section class="cs-sec" id="product"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">What I built</span><h2 class="h-l split">The product</h2></div></div>
-  <div class="features">${p.features.map(([ic, h, t], k) => `<div class="feat rv d${k % 3}"><div class="ic">${ic}</div><h4>${h}</h4><p>${t}</p></div>`).join('')}</div></div></section>
+  <div class="features">${p.features.map(([icn, h, t], k) => `<div class="feat rv d${k % 3}"><div class="ic">${ic(icn)}</div><h4>${h}</h4><p>${t}</p></div>`).join('')}</div></div></section>
 
 <section class="cs-sec" id="architecture"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Architecture</span><h2 class="h-l split">How it works</h2></div></div>
   <div class="arch rv"><div class="arch-row" style="grid-template-columns:${Array(archCols).fill('1fr').join(' 40px ')}">
