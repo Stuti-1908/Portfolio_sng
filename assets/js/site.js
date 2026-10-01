@@ -94,8 +94,8 @@ function drawGlobe() {
   globe = createGlobe(gc, {
     devicePixelRatio: 2, width: size, height: size, phi, theta: 0.28, dark: dark ? 1 : 0, diffuse: dark ? 1.25 : 1.1,
     mapSamples: 16000, mapBrightness: dark ? 5.5 : 2.2,
-    baseColor: dark ? [0.16, 0.15, 0.2] : [1, 0.99, 0.96], markerColor: dark ? [0.95, 0.8, 0.5] : [0.66, 0.47, 0.15],
-    glowColor: dark ? [0.35, 0.3, 0.22] : [0.95, 0.9, 0.8],
+    baseColor: dark ? [0.12, 0.14, 0.24] : [0.93, 0.95, 1], markerColor: dark ? [0.65, 0.7, 1] : [0.31, 0.27, 0.9],
+    glowColor: dark ? [0.2, 0.25, 0.5] : [0.85, 0.88, 1],
     markers: [
       { location: [40.71, -74.0], size: 0.07 },   // New York
       { location: [38.83, -104.82], size: 0.05 }, // Colorado Springs
@@ -141,4 +141,43 @@ if (snLinks.length) {
     if (e.isIntersecting) snLinks.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
   }), { rootMargin: '-45% 0px -50% 0px' });
   snLinks.forEach(a => { const t = document.querySelector(a.getAttribute('href')); t && sio.observe(t); });
+}
+
+
+// ---------- v2 interactivity ----------
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// scroll progress bar
+const bar = document.querySelector('.progress');
+if (bar) { const p = () => bar.style.transform = `scaleX(${scrollY / Math.max(1, document.documentElement.scrollHeight - innerHeight)})`; addEventListener('scroll', p, { passive: true }); p(); }
+// card tilt + cursor glow, magnetic buttons
+if (!reduce && matchMedia('(hover:hover)').matches) {
+  document.querySelectorAll('.pcard').forEach(c => {
+    c.addEventListener('pointermove', e => {
+      const r = c.getBoundingClientRect(), x = (e.clientX - r.left) / r.width, y = (e.clientY - r.top) / r.height;
+      c.style.setProperty('--gx', x * 100 + '%'); c.style.setProperty('--gy', y * 100 + '%');
+      c.style.transform = `perspective(900px) rotateX(${(0.5 - y) * 5}deg) rotateY(${(x - 0.5) * 6}deg) translateY(-4px)`;
+    });
+    c.addEventListener('pointerleave', () => c.style.transform = '');
+  });
+  document.querySelectorAll('.btn').forEach(b => {
+    b.classList.add('magnetic');
+    b.addEventListener('pointermove', e => { const r = b.getBoundingClientRect(); b.style.transform = `translate(${(e.clientX - r.left - r.width / 2) * 0.18}px,${(e.clientY - r.top - r.height / 2) * 0.28}px)`; });
+    b.addEventListener('pointerleave', () => b.style.transform = '');
+  });
+}
+// project quick view
+const qv = document.querySelector('.qv');
+if (qv) {
+  const vis = qv.querySelector('.qv-vis'), body = qv.querySelector('.qv-body');
+  const close = () => qv.classList.remove('on');
+  document.querySelectorAll('.pcard .qv-btn').forEach(btn => btn.addEventListener('click', e => {
+    e.preventDefault(); e.stopPropagation();
+    const c = btn.closest('.pcard');
+    vis.innerHTML = c.querySelector('.thumb .fit').outerHTML;
+    body.innerHTML = `<div class="eyebrow">${c.querySelector('.body .meta').textContent}</div><h3>${c.querySelector('.body h3').textContent}</h3><p>${c.querySelector('.body p').textContent}</p>${c.querySelector('.body .tags').outerHTML}<div class="qv-actions"><a class="btn btn-gold" href="${c.getAttribute('href')}">Read the case study <span class="arr">→</span></a></div>`;
+    qv.classList.add('on'); fitAll();
+  }));
+  qv.addEventListener('click', e => { if (e.target === qv) close(); });
+  qv.querySelector('.qv-x').addEventListener('click', close);
+  addEventListener('keydown', e => e.key === 'Escape' && close());
 }
