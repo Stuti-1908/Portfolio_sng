@@ -132,6 +132,7 @@ const fitAll = () => document.querySelectorAll('.fit').forEach(box => {
 });
 addEventListener('resize', fitAll); addEventListener('load', fitAll); fitAll();
 document.fonts && document.fonts.ready.then(fitAll);
+document.querySelectorAll(".fit img").forEach(i => i.complete ? fitAll() : i.addEventListener("load", fitAll));
 
 // Case-study subnav: highlight the section in view
 const snLinks = [...document.querySelectorAll('.subnav a')];

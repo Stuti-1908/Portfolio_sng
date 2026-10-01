@@ -31,28 +31,7 @@ export const mockups = {
     </div>
   </div>`,
 
-  'exotic-lobby': () => `<div class="mk phones">
-    ${phone(`<div class="el-screen"><small style="font-size:10px;color:var(--gold);letter-spacing:.14em">CONVOY · RIYADH RUN</small>
-      <div class="el-msg in"><small>Khalid · SF90</small>Fuel stop in 20 km, regroup at exit 14</div>
-      <div class="el-msg in"><small>Marco · 296 GTB</small>Copy. Two cars behind me</div>
-      <div class="el-msg out">Route updated for everyone ✓</div>
-      <div class="el-msg in"><small>Event bot</small>Dinner at 21:00, valet confirmed 🏁</div></div>`)}
-    ${phone(`<div class="el-map"><svg viewBox="0 0 240 520"><defs><linearGradient id="rt" x1="0" x2="1"><stop offset="0" stop-color="#F1D9A2"/><stop offset="1" stop-color="#6EF0C2"/></linearGradient></defs>
-      <g stroke="#1E232C" stroke-width="1">${Array.from({ length: 14 }, (_, i) => `<line x1="0" y1="${i * 40}" x2="240" y2="${i * 40 + 60}"/><line x1="${i * 24}" y1="0" x2="${i * 24 - 40}" y2="520"/>`).join('')}</g>
-      <path d="M30 470 C 60 380, 170 400, 150 300 S 60 200, 120 120 S 210 60, 200 40" fill="none" stroke="url(#rt)" stroke-width="4" stroke-linecap="round"/>
-      <path class="flowdash" d="M30 470 C 60 380, 170 400, 150 300 S 60 200, 120 120 S 210 60, 200 40" fill="none" stroke="#fff" stroke-width="1.5" opacity=".6"/>
-      <circle cx="150" cy="300" r="7" fill="#D8B774"/><circle cx="150" cy="300" r="16" fill="#D8B774" opacity=".2"/>
-      <circle cx="118" cy="140" r="6" fill="#6EF0C2"/><circle cx="60" cy="400" r="6" fill="#9D8CFF"/></svg>
-      <div class="el-top"><small>Live · 12 cars</small><b>Dubai → Hatta Mountain Drive</b></div>
-      <div class="el-bottom">
-        <div class="el-car"><i></i><div>Ferrari SF90<br><span>Lead · 82 km/h</span></div><em>● live</em></div>
-        <div class="el-car"><i style="background:linear-gradient(135deg,#6EF0C2,#1d5c49)"></i><div>McLaren 765LT<br><span>0.8 km behind</span></div><em>● live</em></div>
-      </div></div>`)}
-    ${phone(`<div class="el-screen"><div class="el-h">My Garage</div>
-      <span class="el-chip">3 cars</span><span class="el-chip">Service due: 1</span>
-      <div class="el-garage"><div class="ph"></div><div>Lamborghini Revuelto<span>Service booked · Tue 10:00</span></div></div>
-      <div class="el-garage"><div class="ph" style="filter:hue-rotate(160deg)"></div><div>Porsche 918 Spyder<span>Next event: Yas Marina</span></div></div></div>`)}
-  </div>`,
+  'exotic-lobby': () => `<div class="mk el-shot"><img src="{{R}}assets/exotic-lobby.jpg" width="660" height="812" alt="Exotic Lobby app: home, events and garage screens"></div>`,
 
   'agent-os': () => {
     const names = ['Scheduling', 'Research', 'Script & notes', 'Email & comms', 'Budget', 'Production docs', 'Knowledge base', 'Travel', 'Social & PR', 'Admin'];
