@@ -4,6 +4,7 @@ import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { projects, flagship, certs, moreCerts, owned } from './data.mjs';
 import { mockups } from './mockups.mjs';
+import { ic } from './icons.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const bySlug = Object.fromEntries(projects.map(p => [p.slug, p]));
@@ -67,25 +68,25 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 <link rel="stylesheet" href="${r}assets/css/site.css?v=${V}">
 </head><body>
 <div class="progress"></div>
-<div class="qv" role="dialog" aria-modal="true" aria-label="Project preview"><div class="qv-card"><button class="qv-x" aria-label="Close">✕</button><div class="qv-vis"></div><div class="qv-body"></div></div></div>
+<div class="qv" role="dialog" aria-modal="true" aria-label="Project preview"><div class="qv-card"><button class="qv-x" aria-label="Close">${ic('x')}</button><div class="qv-vis"></div><div class="qv-body"></div></div></div>
 <header class="nav"><div class="wrap">
   <a class="brand" href="${r}index.html"><span class="mark">S</span><span>Stuti Gohil<small>AI Engineer · Global AI Consultant</small></span></a>
-  <div class="nav-tools"><button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button class="burger" aria-label="Menu">☰</button></div>
-  <nav class="nav-links">${link('index.html', 'Home', 'home')}${link('work.html', 'Work', 'work')}${link('consulting.html', 'Consulting', 'consulting')}${link('credentials.html', 'Credentials', 'credentials')}<a class="cta-pill" href="mailto:${EMAIL}">Hire me</a></nav>
+  <div class="nav-tools"><button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button class="burger" aria-label="Menu">${ic('menu')}</button></div>
+  <nav class="nav-links">${link('index.html', 'Home', 'home')}${link('work.html', 'Work', 'work')}${link('consulting.html', 'Consulting', 'consulting')}${link('credentials.html', 'Credentials', 'credentials')}<a class="cta-pill" href="${r}contact.html">Hire me</a></nav>
 </div></header>
 <main>${body.replaceAll("{{R}}", r)}</main>
-${ctaBlock()}
+${ctaBlock(r)}
 <footer><div class="wrap"><span>© 2026 Stuti Gohil. Every project shown is real client work, delivered solo.</span>
-<nav><a href="mailto:${EMAIL}">Email</a><a href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Stuti-1908" target="_blank" rel="noopener">GitHub</a><a href="https://thesopbot.com" target="_blank" rel="noopener">thesopbot.com</a><a href="https://exoticlobby.com" target="_blank" rel="noopener">exoticlobby.com</a></nav></div></footer>
+<nav><a href="${r}contact.html">Contact</a><a href="mailto:${EMAIL}">Email</a><a href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Stuti-1908" target="_blank" rel="noopener">GitHub</a><a href="https://thesopbot.com" target="_blank" rel="noopener">thesopbot.com</a><a href="https://exoticlobby.com" target="_blank" rel="noopener">exoticlobby.com</a></nav></div></footer>
 <script src="${r}assets/js/site.js?v=${V}" type="module"></script>
 </body></html>`;
 };
 
-const ctaBlock = () => `<section class="cta-block">
+const ctaBlock = (r = '') => `<section class="cta-block">
   <div class="aura" style="width:700px;height:500px;left:50%;top:40%;translate:-50% -50%;background:rgba(79,70,229,.10)"></div>
   <div class="wrap"><span class="eyebrow">Open to full-time roles &amp; global engagements</span>
   <h2 class="h-xl split">Bring me the problem. I'll bring it to <span class="it">production.</span></h2>
-  <div class="btns"><a class="btn btn-gold" href="mailto:${EMAIL}">${EMAIL} <span class="arr">→</span></a><a class="btn btn-ghost" href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">Connect on LinkedIn ↗</a></div></div></section>`;
+  <div class="btns"><a class="btn btn-gold" href="${r}contact.html">Start a conversation <span class="arr">→</span></a><a class="btn btn-ghost" href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">Connect on LinkedIn ↗</a></div></div></section>`;
 
 const tags = (arr, first) => `<div class="tags">${first || ''}${arr.map(t => `<span class="tag">${t}</span>`).join('')}</div>`;
 const statusTag = p => `<span class="tag ${p.status === 'Live' ? 'live' : 'gold'}">${p.status === 'Live' ? '● ' : ''}${p.status}</span>`;
@@ -103,11 +104,11 @@ const home = () => layout({
 <section class="hero"><div class="aura" style="width:620px;height:620px;right:-120px;top:10%;background:rgba(79,70,229,.09)"></div>
 <div class="wrap hero-grid">
   <div>
-    <div class="avail rv"><span class="pulse"></span>Available for AI Engineering roles · India · Remote · Global</div>
-    <h1 class="h-xl split">I design, build and ship <span class="it">AI products</span> for clients on three continents, on my own.</h1>
-    <p class="lede rv d2">AI Engineer and Global AI Consultant. From iOS and Android apps for Dubai's hypercar elite to 11-agent private AI systems for film directors, I take real client work <strong style="color:var(--ink)">from the first call to production</strong>, then train the client to own it.</p>
-    <div class="btns rv d3"><a class="btn btn-gold" href="work.html">Explore the work <span class="arr">→</span></a><a class="btn btn-ghost" href="consulting.html">Consulting &amp; training</a></div>
-    <div class="hero-meta rv d3"><div><b data-count="9">0</b><span>client products shipped</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b data-count="40">0</b><b style="display:inline">+</b><span>global certifications</span></div></div>
+    <div class="avail rv"><span class="pulse"></span>Available for AI engineering roles and global engagements</div>
+    <h1 class="h-xl split">I build and ship <span class="it">production AI</span>, end to end.</h1>
+    <p class="lede rv d2">AI engineer and consultant for founders and teams across the US, UAE, Europe and India. From voice agents and RAG platforms to iOS and Android apps, I own the whole journey: <strong style="color:var(--ink)">discovery, architecture, build, launch</strong>, and training your team to run it.</p>
+    <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="contact.html">Start a conversation</a></div>
+    <div class="hero-meta rv d3"><div><b data-count="9">0</b><span>products shipped to production</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b><span data-count="40">0</span>+</b><span>global certifications</span></div></div>
   </div>
   <div class="globe-wrap rv d2"><div class="globe-fallback"></div><canvas id="globe"></canvas>
     <div class="pin" style="left:-4%;top:28%"><i></i><b>New York</b>&nbsp;· AI platforms</div>
@@ -159,7 +160,7 @@ const home = () => layout({
     <div class="step"><div class="dot">04</div><h4>Ship</h4><p>Deploy, monitor, harden and deliver to the live domain or app store.</p></div>
     <div class="step"><div class="dot">05</div><h4>Hand over</h4><p>Training and documentation until the client runs it themselves.</p></div>
   </div>
-  <div class="solo-note rv"><span style="font-size:24px">✦</span><span>No agency, no team behind the curtain. <b>Every project on this site was delivered by me, solo</b>, for clients in the US, UAE, Europe and India.</span></div>
+  <div class="solo-note rv"><span class="solo-ic">${ic('spark')}</span><span>No agency, no team behind the curtain. <b>Every project on this site was delivered by me, solo</b>, for clients in the US, UAE, Europe and India.</span></div>
 </div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap"><div class="feature rv">
@@ -168,10 +169,10 @@ const home = () => layout({
     <p class="lede">I consult and train leaders across Dubai and Europe on AI, automation and agent systems, and I measure success by how little they need me afterwards.</p>
     <div class="btns" style="margin-top:30px"><a class="btn btn-gold" href="consulting.html">See consulting work <span class="arr">→</span></a></div></div>
   <div class="r">
-    <div class="who"><span class="ic">🎬</span><div><b>Film directors</b><span>Private 11-agent AI system, plus hands-on training</span></div></div>
-    <div class="who"><span class="ic">🏢</span><div><b>Operations managers · Dubai</b><span>AI, automation and agent workflows</span></div></div>
-    <div class="who"><span class="ic">🤝</span><div><b>Welfare group HR team · Dubai</b><span>AI blueprints and team enablement</span></div></div>
-    <div class="who"><span class="ic">🚀</span><div><b>Founders · US</b><span>AI coaching and sales automation platforms</span></div></div>
+    <div class="who"><span class="ic">${ic('film')}</span><div><b>Film directors</b><span>Private 11-agent AI system, plus hands-on training</span></div></div>
+    <div class="who"><span class="ic">${ic('building')}</span><div><b>Operations managers · Dubai</b><span>AI, automation and agent workflows</span></div></div>
+    <div class="who"><span class="ic">${ic('users')}</span><div><b>Welfare group HR team · Dubai</b><span>AI blueprints and team enablement</span></div></div>
+    <div class="who"><span class="ic">${ic('rocket')}</span><div><b>Founders · US</b><span>AI coaching and sales automation platforms</span></div></div>
   </div></div></div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap">
@@ -212,10 +213,10 @@ const caseStudy = (p, i) => {
   <div class="challenge">${p.challenges.map((c, k) => `<div><i>CHALLENGE 0${k + 1}</i><p>${c}</p></div>`).join('')}</div></div></div></section>
 
 <section class="cs-sec" id="owned"><div class="wrap cs-2"><div><span class="eyebrow">My role</span><h2 class="h-m rv" style="margin-top:18px">What I owned, personally</h2><p class="lede rv" style="margin-top:18px">${p.role}. No team behind me: every item below was mine.</p></div>
-  <ol class="owned">${owned[p.slug].map((o, k) => `<li class="rv"><span>${String(k + 1).padStart(2, '0')}</span>${o}<em>✓</em></li>`).join('')}</ol></div></section>
+  <ol class="owned">${owned[p.slug].map((o, k) => `<li class="rv"><span>${String(k + 1).padStart(2, '0')}</span>${o}<em>${ic('check')}</em></li>`).join('')}</ol></div></section>
 
 <section class="cs-sec" id="product"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">What I built</span><h2 class="h-l split">The product</h2></div></div>
-  <div class="features">${p.features.map(([ic, h, t], k) => `<div class="feat rv d${k % 3}"><div class="ic">${ic}</div><h4>${h}</h4><p>${t}</p></div>`).join('')}</div></div></section>
+  <div class="features">${p.features.map(([icn, h, t], k) => `<div class="feat rv d${k % 3}"><div class="ic">${ic(icn)}</div><h4>${h}</h4><p>${t}</p></div>`).join('')}</div></div></section>
 
 <section class="cs-sec" id="architecture"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Architecture</span><h2 class="h-l split">How it works</h2></div></div>
   <div class="arch rv"><div class="arch-row" style="grid-template-columns:${Array(archCols).fill('1fr').join(' 40px ')}">
@@ -244,7 +245,7 @@ const consulting = () => layout({
   <div class="crumbs"><a href="index.html">Home</a> / Consulting</div><span class="eyebrow">Global AI Consultant</span>
   <h1 class="h-xl split" style="margin-top:20px">I don't just build AI. <span class="it">I teach leaders to own it.</span></h1>
   <p class="lede rv">At 21–22 I was advising and training film directors and operations managers in Dubai and Europe on AI, custom automations and AI agents: designing their systems, building them, and making sure they could run them without me.</p>
-  <div class="btns rv" style="margin-top:36px"><a class="btn btn-gold" href="mailto:${EMAIL}?subject=AI%20consulting%20enquiry">Start an engagement <span class="arr">→</span></a></div></div></section>
+  <div class="btns rv" style="margin-top:36px"><a class="btn btn-gold" href="contact.html?topic=consulting">Start an engagement <span class="arr">→</span></a></div></div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Engagements</span><h2 class="h-l split">Who I've advised</h2></div></div>
   <div class="engage">
@@ -317,11 +318,39 @@ const credentials = () => {
   });
 };
 
+
+// ================= CONTACT =================
+const contact = () => layout({
+  title: 'Contact · Stuti Gohil', active: '', depth: 0,
+  desc: 'Tell me about your project. Short form, reply within 24 hours.',
+  body: `<section class="phero"><div class="wrap"><span class="eyebrow">Contact</span>
+  <h1 class="h-xl split" style="margin-top:20px">Tell me about <span class="it">your project.</span></h1>
+  <p class="lede rv" style="margin-top:24px">A few details are enough. I read every message personally and reply within 24 hours.</p>
+  <div class="contact-grid">
+    <form class="cform rv" id="contact-form" novalidate data-endpoint="https://formsubmit.co/ajax/${EMAIL}">
+      <div class="row2"><label>Name<input name="name" type="text" autocomplete="name" required maxlength="80" placeholder="Your name"></label>
+      <label>Email<input name="email" type="email" autocomplete="email" required maxlength="120" placeholder="you@company.com"></label></div>
+      <label>What do you need?<select name="topic">
+        <option>Build an AI product or app</option><option value="consulting">AI consulting and training</option><option>Full-time role</option><option>Something else</option></select></label>
+      <label>Message<textarea name="message" required minlength="10" maxlength="3000" rows="6" placeholder="What are you building, and what does success look like?"></textarea></label>
+      <input type="text" name="_honey" tabindex="-1" autocomplete="off" class="hp" aria-hidden="true">
+      <div class="cform-foot"><button class="btn btn-gold" type="submit"><span class="lbl">Send message</span> <span class="arr">→</span></button><p class="cform-err" role="alert" hidden></p></div>
+    </form>
+    <div class="cform-ok" id="contact-ok" hidden role="status"><span class="ok-ic">${ic('checkc')}</span><h2>Message received</h2><p>Thank you. You will get a reply within 24 hours. A confirmation is also on its way to your inbox.</p><a class="btn btn-ghost" href="index.html">Back to home</a></div>
+    <aside class="cside rv d2">
+      <div><span class="si">${ic('clock')}</span><b>Reply within 24 hours</b><p>Every enquiry gets a personal response.</p></div>
+      <div><span class="si">${ic('mail')}</span><b>Prefer email?</b><p><a href="mailto:${EMAIL}">${EMAIL}</a></p></div>
+      <div><span class="si">${ic('pin')}</span><b>Working globally</b><p>US, UAE, Europe and India.</p></div>
+    </aside>
+  </div></div></section>`
+});
+
 // ================= WRITE =================
 const out = (file, html) => { const p = join(ROOT, file); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, html); };
 out('index.html', home());
 out('work.html', work());
 out('consulting.html', consulting());
 out('credentials.html', credentials());
+out('contact.html', contact());
 projects.forEach((p, i) => out(`work/${p.slug}.html`, caseStudy(p, i)));
-console.log(`Built ${4 + projects.length} pages`);
+console.log(`Built ${5 + projects.length} pages`);

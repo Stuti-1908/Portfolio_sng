@@ -1,3 +1,4 @@
+import { ic } from './icons.mjs';
 // Hand-built product mockups (pure HTML/CSS). Each returns a fixed-size scene; site.js scales it to fit.
 const phone = (inner, cls = '') => `<div class="phone ${cls}"><div class="scr"><div class="notch"></div><div class="sb"><span>9:41</span><span>●●● ▮</span></div>${inner}</div></div>`;
 const win = (url, body, w = 620) => `<div class="win" style="width:${w}px"><div class="win-bar"><i></i><i></i><i></i><span>${url}</span></div><div class="win-body">${body}</div></div>`;
@@ -6,7 +7,7 @@ const fcard = (label, value, sub) => `<div class="float-card"><small>${label}</s
 export const mockups = {
   sopbot: () => `<div class="mk stack-layout">
     <div class="callcard">
-      <div class="av">📞</div><b>SOPBot Line</b><small>Recording · 04:12</small>
+      <div class="av">${ic('phone')}</div><b>SOPBot Line</b><small>Recording · 04:12</small>
       <div class="wave"></div>
       <div class="transcript">
         <p><b>OPS</b>"When a new client signs, first we create the folder, then…"</p>
@@ -33,18 +34,10 @@ export const mockups = {
 
   'exotic-lobby': () => `<div class="mk el-shot"><img src="{{R}}assets/exotic-lobby.jpg" width="660" height="812" alt="Exotic Lobby app: home, events and garage screens"></div>`,
 
-  yourinboxhero: () => win('yourinboxhero / invoices', `<div class="kpi-row">
-      <div class="kpi"><small>Outstanding</small><b>$12,480</b></div>
-      <div class="kpi"><small>Reminders sent</small><b>412/500</b></div>
-      <div class="kpi"><small>Collected</small><b style="color:var(--mint)">$31.9k</b></div></div>
-    <table class="scoretable">
-      <tr><th>Invoice</th><th>Status</th><th>Escalation</th></tr>
-      <tr><td>Northwind</td><td><span class="pill">Upcoming</span></td><td><span class="pill">Email</span></td></tr>
-      <tr><td>Brightside Co</td><td><span class="pill g">Overdue 7d</span></td><td><span class="pill g">SMS</span></td></tr>
-      <tr><td>Harbor Lane</td><td><span class="pill g">Overdue 21d</span></td><td><span class="pill g">Voice call</span></td></tr>
-      <tr><td>Atlas Studio</td><td><span class="pill">Paid</span></td><td><span class="pill">Stopped</span></td></tr>
-    </table>
-    <div style="margin-top:12px;font-size:11px;color:var(--muted)">Starter plan usage · 82%<div class="meter" style="width:100%;margin-top:6px"><i style="width:82%"></i></div></div>`, 600),
+  yourinboxhero: () => `<div class="mk iibh">
+    <div class="shot back">${win('app.yourinboxhero.com / analytics', `<img src="{{R}}assets/dashboard-analytics.png" width="1535" height="674" alt="YourInboxHero analytics dashboard with aging report and recovery metrics" loading="lazy" decoding="async">`, 720)}</div>
+    <div class="shot front">${win('app.yourinboxhero.com / invoices', `<img src="{{R}}assets/dashboard-invoices.png" width="1535" height="674" alt="YourInboxHero active invoices table with overdue and upcoming status" loading="lazy" decoding="async">`, 720)}</div>
+  </div>`,
 
   'agent-os': () => {
     const names = ['Scheduling', 'Research', 'Script & notes', 'Email & comms', 'Budget', 'Production docs', 'Knowledge base', 'Travel', 'Social & PR', 'Admin'];
@@ -56,7 +49,7 @@ export const mockups = {
     </svg>
     <div class="anode core" style="left:${cx}px;top:${cy}px"><small>ORCHESTRATOR</small>Master Intent Router</div>
     ${pts.map(p => `<div class="anode" style="left:${p.x}px;top:${p.y}px"><i></i>${p.n}</div>`).join('')}
-    <div class="anode lock">🔒 Local-first · Ollama · data never leaves the machine</div></div>`;
+    <div class="anode lock">${ic('lock')} Local-first · Ollama · data never leaves the machine</div></div>`;
   },
 
   goecoach: () => `<div class="mk stack-layout">
@@ -72,14 +65,14 @@ export const mockups = {
 
   'voice-agent': () => `<div class="mk stack-layout">
     <div class="callcard" style="width:300px">
-      <div class="av">🤖</div><b>AI Sales Agent</b><small>Outbound · Live call 01:47</small>
+      <div class="av">${ic('bot')}</div><b>AI Sales Agent</b><small>Outbound · Live call 01:47</small>
       <div class="wave"></div>
       <div class="transcript">
         <p><b>AI</b>Would Thursday at 3 PM work for a 20-minute walkthrough?</p>
         <p><b>LEAD</b>Thursday works, yes.</p>
         <p><b>SENTIMENT</b>Positive · high intent</p>
       </div>
-      <div class="booked">✓ Meeting booked on the calendar during the call</div>
+      <div class="booked">${ic('check')} Meeting booked on the calendar during the call</div>
     </div>
     <div class="stack-col">${fcard('Leads enriched / day', '100+', 'LLM scored')}${fcard('Compliance', 'TCPA', 'consent-aware dialing')}${fcard('Booking', 'Mid-call', 'no human handoff')}</div>
   </div>`,
@@ -96,7 +89,7 @@ export const mockups = {
       <div class="kpi"><small>Corrupted rows</small><b style="color:var(--mint)">0</b></div>
       <div class="kpi"><small>Certificate IDs</small><b>64-bit</b></div></div>
     <div class="bars">${[22, 30, 26, 40, 48, 44, 60, 72, 66, 88, 96, 100, 84, 70].map(h => `<i style="height:${h}%"></i>`).join('')}</div>
-    <div class="ingest">$ ingest athletes.csv --dry-run<br><span class="ok">✓</span> 4,812 rows valid · <span class="w">!</span> 17 malformed rows recovered<br><span class="ok">✓</span> concurrency lock acquired · commit ok · 0 rows lost</div>`, 640),
+    <div class="ingest">$ ingest athletes.csv --dry-run<br><span class="ok">${ic('check')}</span> 4,812 rows valid · <span class="w">!</span> 17 malformed rows recovered<br><span class="ok">${ic('check')}</span> concurrency lock acquired · commit ok · 0 rows lost</div>`, 640),
 
   selvenza: () => `<div class="mk stack-layout">${win('selvenza / heal-report', `<div class="code">
       <div class="cm">// checkout.spec.ts: selector drift detected by DOM snapshot diff</div>
