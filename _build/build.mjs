@@ -62,11 +62,12 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 <meta property="og:title" content="${title}"><meta property="og:description" content="${desc}"><meta name="theme-color" content="#07070A">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23D8B774'/%3E%3Ctext x='50%25' y='58%25' font-family='Georgia' font-size='34' text-anchor='middle' fill='%23111'%3ES%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
 <link rel="stylesheet" href="${r}assets/css/site.css?v=${V}">
 </head><body>
-<div class="grain"></div>
+<div class="progress"></div>
+<div class="qv" role="dialog" aria-modal="true" aria-label="Project preview"><div class="qv-card"><button class="qv-x" aria-label="Close">✕</button><div class="qv-vis"></div><div class="qv-body"></div></div></div>
 <header class="nav"><div class="wrap">
   <a class="brand" href="${r}index.html"><span class="mark">S</span><span>Stuti Gohil<small>AI Engineer · Global AI Consultant</small></span></a>
   <div class="nav-tools"><button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button class="burger" aria-label="Menu">☰</button></div>
@@ -81,7 +82,7 @@ ${ctaBlock()}
 };
 
 const ctaBlock = () => `<section class="cta-block">
-  <div class="aura" style="width:700px;height:500px;left:50%;top:40%;translate:-50% -50%;background:rgba(216,183,116,.10)"></div>
+  <div class="aura" style="width:700px;height:500px;left:50%;top:40%;translate:-50% -50%;background:rgba(79,70,229,.10)"></div>
   <div class="wrap"><span class="eyebrow">Open to full-time roles &amp; global engagements</span>
   <h2 class="h-xl split">Bring me the problem. I'll bring it to <span class="it">production.</span></h2>
   <div class="btns"><a class="btn btn-gold" href="mailto:${EMAIL}">${EMAIL} <span class="arr">→</span></a><a class="btn btn-ghost" href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">Connect on LinkedIn ↗</a></div></div></section>`;
@@ -91,7 +92,7 @@ const statusTag = p => `<span class="tag ${p.status === 'Live' ? 'live' : 'gold'
 const fit = (html, cls = '') => `<div class="fit ${cls}">${html}</div>`;
 
 const pcard = (p, depth = 0) => `<a class="pcard rv" href="${depth ? '' : 'work/'}${p.slug}.html" data-tags="${p.tags}">
-  <div class="thumb">${fit(mockups[p.slug](), 'crop')}</div>
+  <div class="thumb">${fit(mockups[p.slug](), 'crop')}</div><button type="button" class="qv-btn">Quick view</button>
   <div class="body"><div class="meta">${p.client} · ${p.region}</div><h3>${p.title}</h3><p>${p.card}</p>${tags(p.chips.slice(0, 3), statusTag(p))}<span class="go">Read the case study <span class="arr">→</span></span></div></a>`;
 
 // ================= HOME =================
@@ -99,7 +100,7 @@ const home = () => layout({
   title: 'Stuti Gohil · AI Engineer & Global AI Consultant', active: 'home',
   desc: 'AI Engineer and Global AI Consultant. Solo-built production AI products, iOS/Android apps and multi-agent systems for clients in the US, UAE and Europe.',
   body: `
-<section class="hero"><div class="aura" style="width:620px;height:620px;right:-120px;top:10%;background:rgba(216,183,116,.09)"></div>
+<section class="hero"><div class="aura" style="width:620px;height:620px;right:-120px;top:10%;background:rgba(79,70,229,.09)"></div>
 <div class="wrap hero-grid">
   <div>
     <div class="avail rv"><span class="pulse"></span>Available for AI Engineering roles · India · Remote · Global</div>
@@ -197,7 +198,7 @@ const caseStudy = (p, i) => {
   const archCols = p.arch.length;
   return layout({
     title: `${p.title} · Case study · Stuti Gohil`, active: 'work', depth: 1, desc: p.oneLine,
-    body: `<section class="cs-hero"><div class="aura" style="width:700px;height:600px;right:-200px;top:0;background:rgba(216,183,116,.08)"></div><div class="wrap">
+    body: `<section class="cs-hero"><div class="aura" style="width:700px;height:600px;right:-200px;top:0;background:rgba(79,70,229,.08)"></div><div class="wrap">
   <div class="crumbs"><a href="../index.html">Home</a> / <a href="../work.html">Work</a> / ${p.title}</div>
   <div class="cs-top"><div><span class="eyebrow">${p.client} · ${p.region} · ${p.year}</span><h1 class="split">${p.title}</h1><p class="lede rv">${p.oneLine}</p></div>
   <div class="btns rv">${p.live ? `<a class="btn btn-gold" href="${p.live}" target="_blank" rel="noopener">Visit ${p.liveLabel} ↗</a>` : ''}</div></div>
@@ -239,7 +240,7 @@ const caseStudy = (p, i) => {
 // ================= CONSULTING =================
 const consulting = () => layout({
   title: 'Global AI Consulting & Training · Stuti Gohil', active: 'consulting', desc: 'AI, automation and agent consulting and training for film directors, operations leaders and teams in Dubai and Europe.',
-  body: `<section class="phero"><div class="aura" style="width:700px;height:600px;right:-200px;top:0;background:rgba(216,183,116,.1)"></div><div class="wrap">
+  body: `<section class="phero"><div class="aura" style="width:700px;height:600px;right:-200px;top:0;background:rgba(79,70,229,.1)"></div><div class="wrap">
   <div class="crumbs"><a href="index.html">Home</a> / Consulting</div><span class="eyebrow">Global AI Consultant</span>
   <h1 class="h-xl split" style="margin-top:20px">I don't just build AI. <span class="it">I teach leaders to own it.</span></h1>
   <p class="lede rv">At 21–22 I was advising and training film directors and operations managers in Dubai and Europe on AI, custom automations and AI agents: designing their systems, building them, and making sure they could run them without me.</p>

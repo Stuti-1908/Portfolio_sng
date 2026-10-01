@@ -39,7 +39,7 @@ export const mockups = {
     const pts = names.map((n, i) => { const a = -Math.PI / 2 + i * 2 * Math.PI / names.length; return { n, x: cx + R * Math.cos(a), y: cy + R * 0.92 * Math.sin(a) }; });
     return `<div class="mk agraph"><svg viewBox="0 0 560 520">
       <circle cx="${cx}" cy="${cy}" r="120" fill="none" stroke="#2A2A35" stroke-dasharray="2 6"/>
-      ${pts.map(p => `<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="#34343F"/><line class="flowdash" x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="#D8B774" stroke-opacity=".55"/>`).join('')}
+      ${pts.map(p => `<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="#34343F"/><line class="flowdash" x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="#4F46E5" stroke-opacity=".55"/>`).join('')}
     </svg>
     <div class="anode core" style="left:${cx}px;top:${cy}px"><small>ORCHESTRATOR</small>Master Intent Router</div>
     ${pts.map(p => `<div class="anode" style="left:${p.x}px;top:${p.y}px"><i></i>${p.n}</div>`).join('')}
