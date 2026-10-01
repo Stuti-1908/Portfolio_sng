@@ -37,6 +37,24 @@ export const projects = [
     stack: ['React Native', 'TypeScript', 'Supabase', 'PostgreSQL + RLS', 'Edge Functions', 'WebSockets', 'Mapbox'],
   },
   {
+    slug: 'yourinboxhero', title: 'YourInboxHero', client: 'YourInboxHero', region: 'SaaS · Small businesses', year: '2026',
+    role: 'Full-stack developer, end to end', platform: 'Web · SaaS · API', status: 'Live', live: 'https://www.yourinboxhero.com/', liveLabel: 'yourinboxhero.com',
+    tags: 'product auto', chips: ['FastAPI', 'React 19', 'PostgreSQL', 'Stripe', 'Docker'],
+    oneLine: 'Automated invoice reminders and payment chasing for small businesses. Add an invoice once and the system escalates from email to SMS to voice calls until it is paid.',
+    card: 'Invoice follow-up SaaS: multi-channel reminders, Stripe billing and plan-gated access, built solo.',
+    kpis: [['3', 'reminder channels: email, SMS, voice'], ['109+', 'automated backend tests'], ['3', 'paid plan tiers']],
+    brief: [
+      'Small businesses lose time and cash chasing clients for overdue payments. YourInboxHero helps them <strong>get paid faster</strong> by automating the whole invoice follow-up process: owners add their invoices once, and reminders escalate on their own as invoices move from upcoming to overdue.',
+      'Reminders go out by <strong>email, then SMS, then voice calls</strong>, with safeguards that stop automatically the moment an invoice is paid. I built the product end to end, from the API and billing to the dashboard and production deployment.'],
+    challenges: ['Reminders had to escalate across three channels on configurable timing rules, and stop reliably once an invoice was paid.', 'Access had to be locked to active paid subscriptions, with plan limits enforced on every path that can send a reminder.', 'The live database had drifted from its migration history after being partly bootstrapped outside migrations, and production data had to move from SQLite to PostgreSQL safely.'],
+    features: [['⏰', 'Automated multi-channel reminders', 'A daily scheduler escalates reminders from email to SMS to voice calls based on configurable timing rules, with usage tracked per channel for every invoice.'], ['🔐', 'Subscription-gated access', 'Starter, Growth and Scale tiers, each with its own monthly reminder quota and features. No one can register or use the product without an active paid plan.'], ['📈', 'Usage enforcement', 'Hard stops when a plan\'s monthly quota is reached, with automated warning emails at 80% and 100% so customers are never surprised.'], ['💳', 'Stripe billing', 'Checkout sessions and webhook-driven subscription lifecycle: activation, renewal, payment failure and recovery, and cancellation.'], ['🧾', 'Branded invoice PDFs', 'Custom invoice PDFs with configurable branding and logo for each business.'], ['🏢', 'Multi-tenant by design', 'Every business\'s debtors, invoices and templates are scoped and isolated per account.'], ['🎟️', 'Test access tooling', 'HMAC-verified invite codes grant test access without manual per-user admin changes.'], ['📎', 'Document requests', 'Clients can be sent secure upload links to collect documents.']],
+    arch: [['Frontend', [['React 19 + TypeScript', 'dashboard on Vercel'], ['React Router + Vite', 'SPA routing']]], ['API', [['FastAPI', 'Python services', 'hl'], ['Plan gating', 'plan_features.py']]], ['Automation', [['APScheduler', 'daily sweeps + locking', 'mint'], ['Resend · GoHighLevel', 'email · SMS · voice']]], ['Data & billing', [['PostgreSQL', 'SQLAlchemy + Alembic'], ['Stripe', 'signed webhooks']]]],
+    archCaption: 'Dockerized backend on a Hetzner VPS behind Caddy for automatic HTTPS, with the React frontend deployed on Vercel.',
+    decisions: [['One gate for every send path', 'Plan entitlements live in a single module that the API routes, the scheduler and the email service all enforce, so no single code path can bypass a plan limit.'], ['Atomic, race-safe usage counting', 'Reminder usage is counted with keyed SQL UPDATE statements rather than mutating ORM objects, so counts stay correct across concurrent request-scoped sessions.'], ['Webhooks as the only way in', 'Access is granted only by signature-verified Stripe webhooks. Nothing on the client can activate a subscription.'], ['Fixing schema drift properly', 'I found the live database had diverged from the Alembic history and wrote a corrective migration, so new environments deploy with a guaranteed-correct schema.']],
+    outcomes: [['3', 'channels escalated automatically'], ['109+', 'tests gating deploys'], ['0', 'data loss moving SQLite to PostgreSQL'], ['1', 'engineer, end to end']],
+    stack: ['Python', 'FastAPI', 'SQLAlchemy', 'Alembic', 'APScheduler', 'React 19', 'TypeScript', 'Vite', 'PostgreSQL', 'Stripe', 'Resend', 'GoHighLevel', 'Docker', 'Caddy', 'Vercel'],
+  },
+  {
     slug: 'agent-os', title: 'Private AI Operating System', client: 'Film director (private client)', region: 'Europe · Dubai', year: '2026',
     role: 'AI Consultant, architect and trainer', platform: 'Local-first · n8n · Docker · Ollama', status: 'Handed over',
     tags: 'agents auto consult', chips: ['Multi-agent', 'Intent routing', 'Ollama', 'n8n', 'Docker'],
@@ -138,7 +156,7 @@ export const projects = [
   },
 ];
 
-export const flagship = ['sopbot', 'exotic-lobby', 'agent-os'];
+export const flagship = ['sopbot', 'exotic-lobby', 'yourinboxhero'];
 
 export const certs = [
   // [issuer, title, image-slug or '', tags]
@@ -191,6 +209,7 @@ export const moreCerts = [
 export const owned = {
   sopbot: ['Product flow from phone call to finished Google Doc', 'LLM prompt and schema design for SOP structure', 'Transcription and extraction pipeline', 'Google Workspace integration and document generation', 'WorkflowIQ scoring logic and report outputs', 'Dashboard and process library'],
   'exotic-lobby': ['Discovery and feature scoping with the client', 'App architecture across iOS, Android and web', 'Database schema and row-level security policies', 'Realtime location, chat and events', 'Media pipeline migration and performance', 'Admin dashboards, deployment and domain handover'],
+  yourinboxhero: ['Backend API, data model and automation engine', 'Stripe billing and webhook-driven subscription lifecycle', 'Plan-tier feature gating and usage enforcement', 'React frontend and customer dashboard', 'PostgreSQL migration and schema-drift fix', 'Dockerized deployment on Hetzner behind Caddy, frontend on Vercel'],
   'agent-os': ['Requirements with a non-technical creative client', 'Orchestrator and intent-router design', 'Ten specialist agent workflows in n8n', 'Per-agent access scopes', 'Local model setup on Ollama with Docker', 'Training sessions and handover documentation'],
   goecoach: ['Platform architecture (Next.js, FastAPI, Supabase)', 'Multi-LLM routing across GPT-4, Claude and Gemini', 'RAG memory with pgvector HNSW and Redis', 'SMS, email and voice automation flows', 'Zero-downtime Airtable to Supabase migration', 'Production operations and stability'],
   'voice-agent': ['Lead enrichment pipeline', 'LLM sentiment and intent classification', 'Vapi voice agent conversation design', 'Calendar booking during the call', 'TCPA-aware calling flow', 'CRM logging and reporting'],

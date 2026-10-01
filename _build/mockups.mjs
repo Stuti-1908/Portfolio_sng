@@ -33,6 +33,19 @@ export const mockups = {
 
   'exotic-lobby': () => `<div class="mk el-shot"><img src="{{R}}assets/exotic-lobby.jpg" width="660" height="812" alt="Exotic Lobby app: home, events and garage screens"></div>`,
 
+  yourinboxhero: () => win('yourinboxhero / invoices', `<div class="kpi-row">
+      <div class="kpi"><small>Outstanding</small><b>$12,480</b></div>
+      <div class="kpi"><small>Reminders sent</small><b>412/500</b></div>
+      <div class="kpi"><small>Collected</small><b style="color:var(--mint)">$31.9k</b></div></div>
+    <table class="scoretable">
+      <tr><th>Invoice</th><th>Status</th><th>Escalation</th></tr>
+      <tr><td>Northwind</td><td><span class="pill">Upcoming</span></td><td><span class="pill">Email</span></td></tr>
+      <tr><td>Brightside Co</td><td><span class="pill g">Overdue 7d</span></td><td><span class="pill g">SMS</span></td></tr>
+      <tr><td>Harbor Lane</td><td><span class="pill g">Overdue 21d</span></td><td><span class="pill g">Voice call</span></td></tr>
+      <tr><td>Atlas Studio</td><td><span class="pill">Paid</span></td><td><span class="pill">Stopped</span></td></tr>
+    </table>
+    <div style="margin-top:12px;font-size:11px;color:var(--muted)">Starter plan usage · 82%<div class="meter" style="width:100%;margin-top:6px"><i style="width:82%"></i></div></div>`, 600),
+
   'agent-os': () => {
     const names = ['Scheduling', 'Research', 'Script & notes', 'Email & comms', 'Budget', 'Production docs', 'Knowledge base', 'Travel', 'Social & PR', 'Admin'];
     const cx = 280, cy = 250, R = 205;

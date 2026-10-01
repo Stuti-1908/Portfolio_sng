@@ -107,7 +107,7 @@ const home = () => layout({
     <h1 class="h-xl split">I design, build and ship <span class="it">AI products</span> for clients on three continents, on my own.</h1>
     <p class="lede rv d2">AI Engineer and Global AI Consultant. From iOS and Android apps for Dubai's hypercar elite to 11-agent private AI systems for film directors, I take real client work <strong style="color:var(--ink)">from the first call to production</strong>, then train the client to own it.</p>
     <div class="btns rv d3"><a class="btn btn-gold" href="work.html">Explore the work <span class="arr">→</span></a><a class="btn btn-ghost" href="consulting.html">Consulting &amp; training</a></div>
-    <div class="hero-meta rv d3"><div><b data-count="8">0</b><span>client products shipped</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b data-count="40">0</b><b style="display:inline">+</b><span>global certifications</span></div></div>
+    <div class="hero-meta rv d3"><div><b data-count="9">0</b><span>client products shipped</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b data-count="40">0</b><b style="display:inline">+</b><span>global certifications</span></div></div>
   </div>
   <div class="globe-wrap rv d2"><div class="globe-fallback"></div><canvas id="globe"></canvas>
     <div class="pin" style="left:-4%;top:28%"><i></i><b>New York</b>&nbsp;· AI platforms</div>
@@ -130,7 +130,7 @@ const home = () => layout({
 </div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap">
-  <div class="sec-head"><div><span class="eyebrow">Flagship work</span><h2 class="h-l split">Real clients. Real stakes. <span class="it">Shipped.</span></h2></div><a class="btn btn-ghost rv" href="work.html">All 8 case studies <span class="arr">→</span></a></div>
+  <div class="sec-head"><div><span class="eyebrow">Flagship work</span><h2 class="h-l split">Real clients. Real stakes. <span class="it">Shipped.</span></h2></div><a class="btn btn-ghost rv" href="work.html">All 9 case studies <span class="arr">→</span></a></div>
   ${flagship.map((s, i) => { const p = bySlug[s]; return `<div class="show">
     <div class="rv"><div class="idx">0${i + 1} / ${p.client.toUpperCase()} · ${p.region.toUpperCase()}</div><h3>${p.title}</h3><p>${p.oneLine}</p>
       <div class="mini-kpis">${p.kpis.map(k => `<div><b>${k[0]}</b><span>${k[1]}</span></div>`).join('')}</div>
@@ -182,10 +182,10 @@ const home = () => layout({
 
 // ================= WORK =================
 const work = () => layout({
-  title: 'Work · Stuti Gohil', active: 'work', desc: 'Eight real client projects delivered solo, from AI agents and RAG to iOS/Android apps and automations.',
+  title: 'Work · Stuti Gohil', active: 'work', desc: 'Nine real projects delivered solo, from AI agents and RAG to iOS/Android apps and automations.',
   body: `<section class="phero"><div class="aura" style="width:600px;height:500px;left:-100px;top:0;background:rgba(157,140,255,.08)"></div><div class="wrap">
   <div class="crumbs"><a href="index.html">Home</a> / Work</div><span class="eyebrow">Case studies</span>
-  <h1 class="h-xl split" style="margin-top:20px">Eight products. <span class="it">One builder.</span></h1>
+  <h1 class="h-xl split" style="margin-top:20px">Nine products. <span class="it">One builder.</span></h1>
   <p class="lede rv">Each one is a real client engagement I took from a blank page to production, across the US, Dubai, Europe and India.</p></div></section>
   <section style="padding-bottom:40px"><div class="wrap">
     <div class="filterbar rv" data-filter-group=".pcard"><button class="on" data-f="all">All work</button><button data-f="agents">AI agents</button><button data-f="rag">RAG &amp; LLM</button><button data-f="product">Apps &amp; platforms</button><button data-f="auto">Automation</button><button data-f="consult">Consulting</button></div>
