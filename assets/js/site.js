@@ -124,7 +124,7 @@ const fitAll = () => document.querySelectorAll('.fit').forEach(box => {
   const el = box.firstElementChild; if (!el) return;
   el.style.transform = 'none';
   const w = el.offsetWidth, h = el.offsetHeight, crop = box.classList.contains('crop');
-  const avail = box.parentElement.clientWidth - (crop ? 32 : 0);
+  const ps = getComputedStyle(box.parentElement), avail = box.parentElement.clientWidth - (parseFloat(ps.paddingLeft) + parseFloat(ps.paddingRight)) - (crop ? 32 : 0);
   const s = Math.min(crop ? 0.72 : 1, avail / w);
   el.style.transform = `scale(${s})`;
   el.style.left = Math.max(0, (box.clientWidth - w * s) / 2) + 'px';
