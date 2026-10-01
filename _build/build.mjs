@@ -72,7 +72,7 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
   <div class="nav-tools"><button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button class="burger" aria-label="Menu">☰</button></div>
   <nav class="nav-links">${link('index.html', 'Home', 'home')}${link('work.html', 'Work', 'work')}${link('consulting.html', 'Consulting', 'consulting')}${link('credentials.html', 'Credentials', 'credentials')}<a class="cta-pill" href="mailto:${EMAIL}">Hire me</a></nav>
 </div></header>
-<main>${body}</main>
+<main>${body.replaceAll("{{R}}", r)}</main>
 ${ctaBlock()}
 <footer><div class="wrap"><span>© 2026 Stuti Gohil. Every project shown is real client work, delivered solo.</span>
 <nav><a href="mailto:${EMAIL}">Email</a><a href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Stuti-1908" target="_blank" rel="noopener">GitHub</a><a href="https://thesopbot.com" target="_blank" rel="noopener">thesopbot.com</a><a href="https://exoticlobby.com" target="_blank" rel="noopener">exoticlobby.com</a></nav></div></footer>
