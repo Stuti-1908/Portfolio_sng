@@ -243,3 +243,14 @@ if (cf) {
     }
   });
 }
+
+// credentials: collapse long certificate grid on phones
+const cg = document.querySelector('.cert-grid');
+if (cg && matchMedia('(max-width:760px)').matches) {
+  const more = document.createElement('button');
+  more.type = 'button'; more.className = 'btn btn-ghost cert-more'; more.textContent = 'Show all certificates';
+  cg.after(more);
+  const open = () => { cg.classList.add('all'); more.remove(); };
+  more.addEventListener('click', open);
+  document.querySelectorAll('.filterbar button').forEach(b => b.addEventListener('click', open));
+}

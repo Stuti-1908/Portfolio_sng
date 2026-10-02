@@ -35,8 +35,8 @@ export const mockups = {
   'exotic-lobby': () => `<div class="mk el-shot"><img src="{{R}}assets/exotic-lobby.jpg" width="660" height="812" alt="Exotic Lobby app: home, events and garage screens"></div>`,
 
   yourinboxhero: () => `<div class="mk iibh">
-    <div class="shot back">${win('app.yourinboxhero.com / analytics', `<img src="{{R}}assets/dashboard-analytics.png" width="1535" height="674" alt="YourInboxHero analytics dashboard with aging report and recovery metrics" loading="lazy" decoding="async">`, 720)}</div>
-    <div class="shot front">${win('app.yourinboxhero.com / invoices', `<img src="{{R}}assets/dashboard-invoices.png" width="1535" height="674" alt="YourInboxHero active invoices table with overdue and upcoming status" loading="lazy" decoding="async">`, 720)}</div>
+    <div class="shot back">${win('app.yourinboxhero.com / analytics', `<img src="{{R}}assets/dashboard-analytics.png" width="1535" height="674" alt="YourInboxHero analytics dashboard with aging report and recovery metrics" decoding="async">`, 720)}</div>
+    <div class="shot front">${win('app.yourinboxhero.com / invoices', `<img src="{{R}}assets/dashboard-invoices.png" width="1535" height="674" alt="YourInboxHero active invoices table with overdue and upcoming status" decoding="async">`, 720)}</div>
   </div>`,
 
   'agent-os': () => {
