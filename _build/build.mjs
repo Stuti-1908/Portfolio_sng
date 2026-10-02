@@ -111,10 +111,10 @@ const home = () => layout({
     <div class="hero-meta rv d3"><div><b data-count="9">0</b><span>products shipped to production</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b><span data-count="40">0</span>+</b><span>global certifications</span></div></div>
   </div>
   <div class="globe-wrap rv d2"><div class="globe-fallback"></div><canvas id="globe"></canvas>
-    <div class="pin" style="left:-4%;top:28%"><i></i><b>New York</b>&nbsp;· AI platforms</div>
-    <div class="pin" style="right:-2%;top:44%;animation-delay:-2s"><i></i><b>Dubai</b>&nbsp;· apps + consulting</div>
-    <div class="pin" style="left:18%;top:6%;animation-delay:-4s"><i></i><b>Europe</b>&nbsp;· private AI systems</div>
-    <div class="pin" style="left:34%;bottom:6%;animation-delay:-3s"><i></i><b>India</b>&nbsp;· national-scale portal</div>
+    <div class="pin pin-ny" style="left:-4%;top:28%"><i></i><b>New York</b>&nbsp;· AI platforms</div>
+    <div class="pin pin-dxb" style="right:-2%;top:44%;animation-delay:-2s"><i></i><b>Dubai</b>&nbsp;· apps + consulting</div>
+    <div class="pin pin-eu" style="left:18%;top:6%;animation-delay:-4s"><i></i><b>Europe</b>&nbsp;· private AI systems</div>
+    <div class="pin pin-in" style="left:34%;bottom:6%;animation-delay:-3s"><i></i><b>India</b>&nbsp;· national-scale portal</div>
   </div>
 </div></section>
 
