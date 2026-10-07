@@ -76,7 +76,7 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 </div></header>
 <main>${body.replaceAll("{{R}}", r)}</main>
 ${ctaBlock(r)}
-<footer><div class="wrap"><span>© 2026 Stuti Gohil. Every project shown is real client work, delivered solo.</span>
+<footer><div class="wrap"><span>© 2026 Stuti Gohil. Every project shown was built solo; all but one are real client work.</span>
 <nav><a href="${r}contact.html">Contact</a><a href="mailto:${EMAIL}">Email</a><a href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Stuti-1908" target="_blank" rel="noopener">GitHub</a><a href="https://thesopbot.com" target="_blank" rel="noopener">thesopbot.com</a><a href="https://exoticlobby.com" target="_blank" rel="noopener">exoticlobby.com</a></nav></div></footer>
 <script src="${r}assets/js/site.js?v=${V}" type="module"></script>
 </body></html>`;
@@ -183,11 +183,11 @@ const home = () => layout({
 
 // ================= WORK =================
 const work = () => layout({
-  title: 'Work · Stuti Gohil', active: 'work', desc: 'Ten real projects delivered solo, from AI agents and RAG to iOS/Android apps and automations.',
+  title: 'Work · Stuti Gohil', active: 'work', desc: 'Ten projects built solo, nine for real clients, from AI agents and RAG to iOS/Android apps and automations.',
   body: `<section class="phero"><div class="aura" style="width:600px;height:500px;left:-100px;top:0;background:rgba(157,140,255,.08)"></div><div class="wrap">
   <div class="crumbs"><a href="index.html">Home</a> / Work</div><span class="eyebrow">Case studies</span>
   <h1 class="h-xl split" style="margin-top:20px">Ten products. <span class="it">One builder.</span></h1>
-  <p class="lede rv">Each one is a real client engagement I took from a blank page to production, across the US, Dubai, Europe and India.</p></div></section>
+  <p class="lede rv">Nine are real client engagements and one is a self-initiated build, each taken from a blank page to production, across the US, Dubai, Europe and India.</p></div></section>
   <section style="padding-bottom:40px"><div class="wrap">
     <div class="filterbar rv" data-filter-group=".pcard"><button class="on" data-f="all">All work</button><button data-f="agents">AI agents</button><button data-f="rag">RAG &amp; LLM</button><button data-f="product">Apps &amp; platforms</button><button data-f="auto">Automation</button><button data-f="consult">Consulting</button></div>
     <div class="cards two">${projects.map(p => pcard(p)).join('')}</div></div></section>`
@@ -231,7 +231,7 @@ const caseStudy = (p, i) => {
   <div style="margin-top:60px" class="rv"><span class="eyebrow">Stack</span><div class="stackrow" style="margin-top:20px">${p.stack.map(s => `<span class="tag">${s}</span>`).join('')}</div></div></div></section>
 
 <section class="cs-sec" id="delivery"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Delivery</span><h2 class="h-l split">Every phase. One person.</h2></div></div>
-  <div class="phases rv">${[['Discover', 'Requirements and process mapping with the client'], ['Architect', 'System, data and security design'], ['Build', 'Frontend, backend, AI and automation'], ['Ship', 'Deployment, hardening and delivery'], ['Hand over', 'Training, documentation and support']].map(([h, t], k) => `<div class="phase"><small>PHASE 0${k + 1}</small><span class="me">ME</span><h5>${h}</h5><p>${t}</p></div>`).join('')}</div></div></section>
+  <div class="phases rv">${(p.slug === 'a-square-merch' ? [['Define', 'Brief, scope and design direction set by me'], ['Architect', 'System, data and security design'], ['Build', 'Frontend, backend, CMS and animation'], ['Ship', 'Deployment, hardening and delivery'], ['Document', 'README, env template and a candid list of known gaps']] : [['Discover', 'Requirements and process mapping with the client'], ['Architect', 'System, data and security design'], ['Build', 'Frontend, backend, AI and automation'], ['Ship', 'Deployment, hardening and delivery'], ['Hand over', 'Training, documentation and support']]).map(([h, t], k) => `<div class="phase"><small>PHASE 0${k + 1}</small><span class="me">ME</span><h5>${h}</h5><p>${t}</p></div>`).join('')}</div></div></section>
 
 <div class="pn"><a href="${prev.slug}.html"><small>← Previous</small><b>${prev.title}</b></a><a href="../work.html" class="all"><small>Index</small><b>All work</b></a><a href="${next.slug}.html" class="r"><small>Next →</small><b>${next.title}</b></a></div>
 <a class="next" href="${next.slug}.html"><div class="wrap"><small>Next case study</small><h3>${next.title} →</h3></div></a>`
