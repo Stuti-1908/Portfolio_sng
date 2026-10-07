@@ -9,6 +9,7 @@ import { ic } from './icons.mjs';
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const bySlug = Object.fromEntries(projects.map(p => [p.slug, p]));
 const V = Date.now().toString(36);
+const RESUME_ID = '1N5rvMqq527385iVeyLDKMqBrOPSDqvy0';
 const EMAIL = 'sng19.work@gmail.com', PHONE = '+91 63550 46464';
 
 
@@ -72,7 +73,7 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 <header class="nav"><div class="wrap">
   <a class="brand" href="${r}index.html"><span class="mark">S</span><span>Stuti Gohil<small>AI Engineer · Global AI Consultant</small></span></a>
   <div class="nav-tools"><button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button class="burger" aria-label="Menu">${ic('menu')}</button></div>
-  <nav class="nav-links">${link('index.html', 'Home', 'home')}${link('work.html', 'Work', 'work')}${link('consulting.html', 'Consulting', 'consulting')}${link('credentials.html', 'Credentials', 'credentials')}<a class="cta-pill" href="${r}contact.html">Hire me</a></nav>
+  <nav class="nav-links">${link('index.html', 'Home', 'home')}${link('work.html', 'Work', 'work')}${link('consulting.html', 'Consulting', 'consulting')}${link('credentials.html', 'Credentials', 'credentials')}${link('resume.html', 'Resume', 'resume')}<a class="cta-pill" href="${r}contact.html">Hire me</a></nav>
 </div></header>
 <main>${body.replaceAll("{{R}}", r)}</main>
 ${ctaBlock(r)}
@@ -107,7 +108,7 @@ const home = () => layout({
     <div class="avail rv"><span class="pulse"></span>Available for AI engineering roles and global engagements</div>
     <h1 class="h-xl split">I build and ship <span class="it">production AI</span>, end to end.</h1>
     <p class="lede rv d2">AI engineer and consultant for founders and teams across the US, UAE, Europe and India. From voice agents and RAG platforms to iOS and Android apps, I own the whole journey: <strong style="color:var(--ink)">discovery, architecture, build, launch</strong>, and training your team to run it.</p>
-    <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="contact.html">Start a conversation</a></div>
+    <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="resume.html">Resume</a><a class="btn btn-ghost" href="contact.html">Start a conversation</a></div>
     <div class="hero-meta rv d3"><div><b data-count="10">0</b><span>products shipped to production</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b><span data-count="40">0</span>+</b><span>global certifications</span></div></div>
   </div>
   <div class="globe-wrap rv d2"><div class="globe-fallback"></div><canvas id="globe"></canvas>
@@ -345,6 +346,19 @@ const contact = () => layout({
   </div></div></section>`
 });
 
+// ================= RESUME =================
+const resume = () => layout({
+  title: 'Resume · Stuti Gohil', active: 'resume', desc: 'View or download the resume of Stuti Gohil, AI Engineer and Global AI Consultant.',
+  body: `<section class="phero"><div class="wrap">
+  <div class="crumbs"><a href="index.html">Home</a> / Resume</div><span class="eyebrow">Resume</span>
+  <h1 class="h-xl split" style="margin-top:20px">My resume, <span class="it">right here.</span></h1>
+  <p class="lede rv" style="margin-top:24px">Read it in the page or take a copy with you.</p>
+  <div class="btns rv" style="margin-top:32px"><a class="btn btn-gold" href="https://drive.google.com/uc?export=download&amp;id=${RESUME_ID}" rel="noopener">Download PDF <span class="arr">↓</span></a><a class="btn btn-ghost" href="https://drive.google.com/file/d/${RESUME_ID}/view" target="_blank" rel="noopener">Open full screen ↗</a></div>
+  <div class="resume-view rv"><iframe src="https://drive.google.com/file/d/${RESUME_ID}/preview" title="Stuti Gohil resume" loading="lazy" allow="autoplay"></iframe></div>
+  <p class="resume-note">Viewer not loading? <a href="https://drive.google.com/file/d/${RESUME_ID}/view" target="_blank" rel="noopener">Open the resume in a new tab</a>.</p>
+  </div></section>`
+});
+
 // ================= WRITE =================
 const out = (file, html) => { const p = join(ROOT, file); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, html); };
 out('index.html', home());
@@ -352,5 +366,6 @@ out('work.html', work());
 out('consulting.html', consulting());
 out('credentials.html', credentials());
 out('contact.html', contact());
+out('resume.html', resume());
 projects.forEach((p, i) => out(`work/${p.slug}.html`, caseStudy(p, i)));
-console.log(`Built ${5 + projects.length} pages`);
+console.log(`Built ${6 + projects.length} pages`);

@@ -834,3 +834,8 @@ img,svg,video{max-width:100%}
   .cert-more{display:flex;margin:16px auto 0;justify-content:center}
 }
 .cert-more{display:none}
+
+.resume-view{margin-top:40px;border:1px solid var(--line-2);border-radius:20px;overflow:hidden;background:#fff;box-shadow:0 30px 80px -40px rgba(0,0,0,.4)}
+.resume-view iframe{display:block;width:100%;height:min(1200px,150vw);min-height:560px;border:0}
+.resume-note{margin-top:18px;font-size:14px;opacity:.75}
+.resume-note a{text-decoration:underline}
