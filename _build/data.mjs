@@ -154,6 +154,24 @@ export const projects = [
     outcomes: [['40+', 'QA hours saved per release'], ['Every PR', 'drift detection'], ['Auto', 'test refactoring'], ['Docker', 'reproducible runs']],
     stack: ['Node.js', 'React / Vite', 'DOM diffing', 'REST APIs', 'Docker', 'GitHub Actions'],
   },
+  {
+    slug: 'a-square-merch', title: 'A Square Merch', client: 'Self-initiated build (fictional manufacturer)', region: 'India', year: '2026',
+    role: 'Sole developer, end to end', platform: 'Web · CMS · Admin panel', status: 'Live', live: 'https://a-square-psi.vercel.app/', liveLabel: 'a-square-psi.vercel.app',
+    tags: 'product', chips: ['Next.js 16', 'Prisma', 'Supabase Postgres', 'GSAP', 'NextAuth'],
+    oneLine: 'A full-stack B2B apparel manufacturing site built to turn cold traffic into qualified RFQs, not to sell single units. Next.js, Postgres and an admin CMS, all built solo.',
+    card: 'B2B apparel manufacturer site with an RFQ pipeline, admin CMS and hand-built UI patterns.',
+    kpis: [['18', 'product categories'], ['13', 'customization techniques'], ['13', 'Postgres models']],
+    brief: [
+      'A factory website has a different job from a storefront: it has to turn cold traffic into a <strong>qualified request for quote</strong>. A Square Merch is a fictional India-based manufacturer serving streetwear brands, corporate buyers and export clients, and I built the whole site as a self-initiated project.',
+      'The brief I set was explicit: <strong>do not think like a normal designer</strong>. That ruled out component-library defaults, so the carousel, the techniques accordion and the lookbook-style product grid are all built from scratch.'],
+    challenges: ['Eighteen categories, eleven fabrics, thirteen techniques and thirteen industries all had to be editable from an admin panel and served from a real database.', 'A pinned, scroll-driven cinematic intro had to cooperate with a smooth-scroll library that owns the scroll position.', 'Static generation of about 56 routes exhausted a free-tier Postgres connection pooler during builds.'],
+    features: [['layers', '3D coverflow catalogue', 'A custom carousel for browsing the eighteen product categories.'], ['film', 'Cinematic scroll intro', 'GSAP ScrollTrigger intro, gated behind prefers-reduced-motion.'], ['inbox', 'Multi-step RFQ form', 'react-hook-form and Zod, with honeypot filtering and server-side validation.'], ['database', 'Admin CMS', 'Role-gated editing of products, fabrics, blog, leads, testimonials and FAQs.'], ['shield', 'Hardened endpoints', 'Every admin route checks the session and role before touching the database.'], ['box', 'Durable file storage', 'Tech-pack uploads go to Vercel Blob in production, renamed to a fresh UUID.']],
+    arch: [['Public site', [['Next.js App Router', '20+ server-rendered routes'], ['Custom UI', 'GSAP · Framer Motion · Lenis', 'hl']]], ['API', [['Quotes endpoint', 'rate-limited + Zod', 'mint'], ['Admin routes', 'requireAdmin() guard']]], ['Data', [['lib/data.ts', 'rows to UI shapes'], ['Prisma + Postgres', 'Supabase pooler']]], ['Storage', [['Vercel Blob', 'tech packs + media']]]],
+    archCaption: 'Pages never see storage details: one data layer turns database rows back into the shapes the UI expects.',
+    decisions: [['JSON-text list fields', 'Lists are stored as JSON text rather than native arrays, so moving from SQLite in development to Postgres in production was a one-line provider change instead of a migration.'], ['Lenis owns the scroll', 'The intro hand-off goes through lenis.scrollTo() rather than the native API, so the library and the visible scroll position never disagree.'], ['Server-side validation', 'Rate limiting, honeypot filtering and Zod run on the server, because client-side validation is UX and not security.']],
+    outcomes: [['18', 'product categories, DB-driven'], ['13', 'Prisma models'], ['~56', 'statically generated routes'], ['9', 'admin routes, all guarded']],
+    stack: ['Next.js 16', 'TypeScript', 'PostgreSQL (Supabase)', 'Prisma', 'NextAuth', 'GSAP', 'Framer Motion', 'Lenis', 'Tailwind CSS', 'Vercel Blob'],
+  },
 ];
 
 export const flagship = ['sopbot', 'exotic-lobby', 'yourinboxhero'];
@@ -215,5 +233,6 @@ export const owned = {
   'voice-agent': ['Lead enrichment pipeline', 'LLM sentiment and intent classification', 'Vapi voice agent conversation design', 'Calendar booking during the call', 'TCPA-aware calling flow', 'CRM logging and reporting'],
   'welfare-hr': ['Process audit of HR operations', 'End-to-end automation blueprint', 'AI screening and summary design', 'Human approval checkpoints', 'Scheduling, offer and onboarding automations', 'Team coaching and enablement'],
   levelup: ['Registration portal frontend', 'Deployment to Vercel and Azure Container Apps', 'Fault-tolerant CSV ingestion engine', 'Deterministic certificate ID scheme', 'Two-tier RAG search', 'Sprint delivery in Jira and Confluence'],
+  'a-square-merch': ['Site concept, information architecture and UI direction', 'Custom 3D coverflow carousel and techniques accordion', 'GSAP and Lenis scroll-driven intro', 'Prisma schema, seed script and data-access layer', 'Admin CMS and role-gated API routes', 'RFQ pipeline, SQLite to Postgres move, and Vercel deployment'],
   selvenza: ['Problem discovery with the QA team', 'DOM snapshot diffing engine', 'Selector-matching and healing logic', 'Automated test refactoring', 'Node.js backend and REST APIs', 'GitHub Actions and Docker integration'],
 };

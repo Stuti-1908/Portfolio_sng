@@ -91,6 +91,17 @@ export const mockups = {
     <div class="bars">${[22, 30, 26, 40, 48, 44, 60, 72, 66, 88, 96, 100, 84, 70].map(h => `<i style="height:${h}%"></i>`).join('')}</div>
     <div class="ingest">$ ingest athletes.csv --dry-run<br><span class="ok">${ic('check')}</span> 4,812 rows valid · <span class="w">!</span> 17 malformed rows recovered<br><span class="ok">${ic('check')}</span> concurrency lock acquired · commit ok · 0 rows lost</div>`, 640),
 
+  'a-square-merch': () => win('a-square-psi.vercel.app / catalogue', `<div class="kpi-row">
+      <div class="kpi"><small>Categories</small><b>18</b></div>
+      <div class="kpi"><small>Fabrics</small><b>11</b></div>
+      <div class="kpi"><small>Techniques</small><b>13</b></div></div>
+    <div class="pipeline">
+      <div class="pl-col"><small>Catalogue <b>3D</b></small><div class="pl-card ai">Hoodies &amp; sweats<span>● coverflow</span></div><div class="pl-card">Polo &amp; tees<span>18 categories</span></div></div>
+      <div class="pl-col"><small>Customise</small><div class="pl-card ai">Screen print<span>● 13 techniques</span></div><div class="pl-card">Embroidery<span>specimen strip</span></div></div>
+      <div class="pl-col"><small>RFQ</small><div class="pl-card ai">Multi-step form<span>● Zod validated</span></div><div class="pl-card">Tech-pack upload<span>Vercel Blob</span></div></div>
+      <div class="pl-col"><small>Admin</small><div class="pl-card ai">New lead<span>● Postgres</span></div><div class="pl-card">Role-gated CMS<span>requireAdmin()</span></div></div>
+    </div>`, 760),
+
   selvenza: () => `<div class="mk stack-layout">${win('selvenza / heal-report', `<div class="code">
       <div class="cm">// checkout.spec.ts: selector drift detected by DOM snapshot diff</div>
       <div><span class="k">await</span> page.click(</div>
