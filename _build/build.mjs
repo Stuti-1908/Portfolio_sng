@@ -119,7 +119,7 @@ const home = () => layout({
     <div class="avail rv"><span class="pulse"></span>Open to new AI builds and team roles</div>
     <h1 class="h-xl split">I build AI systems that take <span class="it">manual work</span> off your team's plate.</h1>
     <p class="lede rv d2">Voice agents, document and payment automation, RAG platforms and full AI products for companies in the US, UAE, Europe and India. I own the whole journey, <strong style="color:var(--ink)">from the first call to production</strong>, and plug straight into your team.</p>
-    <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="${CAL}" target="_blank" rel="noopener">Book a 20-min call</a><a class="btn btn-ghost" href="resume.html">Resume</a></div>
+    <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="${CAL}" target="_blank" rel="noopener">Book a call</a><a class="btn btn-ghost" href="resume.html">Resume</a></div>
     <div class="hero-meta rv d3"><div><b data-count="10">0</b><span>products shipped to production</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b><span data-count="40">0</span>+</b><span>global certifications</span></div></div>
   </div>
   <div class="globe-wrap rv d2"><div class="globe-fallback"></div><canvas id="globe"></canvas>
