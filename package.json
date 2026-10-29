@@ -1,0 +1,8 @@
+{
+  "name": "stuti-gohil-portfolio",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:site": "node _build/build.mjs"
+  }
+}

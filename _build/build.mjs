@@ -78,6 +78,16 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 <link rel="stylesheet" href="${r}assets/css/site.css?v=${V}">
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
+<button class="ask-fab" type="button" aria-haspopup="dialog" aria-controls="ask">${ic('spark')}<span>Ask my portfolio</span></button>
+<section class="ask" id="ask" role="dialog" aria-modal="false" aria-labelledby="ask-title" hidden>
+  <header class="ask-head"><span class="ask-av">${ic('spark')}</span><div><b id="ask-title">Ask my portfolio</b><small>AI assistant · answers from Stuti's case studies</small></div><button class="ask-x" type="button" aria-label="Close chat">${ic('x')}</button></header>
+  <div class="ask-log" aria-live="polite">
+    <div class="ask-msg bot">Hi! Ask me anything about Stuti's work: projects, skills, or whether she could help with something you're building.</div>
+    <div class="ask-chips">${['Has she built voice AI agents?', 'What did she build for YourInboxHero?', 'Could she automate our document collection?', 'Is she open to joining a team?'].map(q => `<button type="button">${q}</button>`).join('')}</div>
+  </div>
+  <form class="ask-form"><label class="sr" for="ask-in">Your question</label><input id="ask-in" name="q" autocomplete="off" maxlength="600" placeholder="Ask about her work…"><button type="submit" aria-label="Send">${ic('arrowUp')}</button></form>
+  <p class="ask-note">AI answers can be imperfect. <a href="${CAL}" target="_blank" rel="noopener">Book a call</a> to talk to Stuti directly.</p>
+</section>
 <div class="progress"></div>
 <div class="qv" role="dialog" aria-modal="true" aria-label="Project preview"><div class="qv-card"><button class="qv-x" aria-label="Close">${ic('x')}</button><div class="qv-vis"></div><div class="qv-body"></div></div></div>
 <header class="nav"><div class="wrap">
@@ -87,8 +97,16 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 </div></header>
 <main id="main">${body.replaceAll("{{R}}", r)}</main>
 ${ctaBlock(r)}
-<footer><div class="wrap"><span>© 2026 Stuti Gohil. Every project shown was built solo; all but one are real client work.</span>
-<nav><a href="${r}contact.html">Contact</a><a href="mailto:${EMAIL}">Email</a><a href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Stuti-1908" target="_blank" rel="noopener">GitHub</a><a href="https://thesopbot.com" target="_blank" rel="noopener">thesopbot.com</a><a href="https://exoticlobby.com" target="_blank" rel="noopener">exoticlobby.com</a></nav></div></footer>
+<footer><div class="wrap">
+  <div class="foot-cols">
+    <div class="foot-brand"><a class="brand" href="${r}index.html"><span class="mark">S</span><span>Stuti Gohil<small>AI Engineer · Global AI Consultant</small></span></a><p>I build AI systems that take manual work off your team's plate. Working with companies in the US, UAE, Europe and India.</p>
+      <div class="soc"><a href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener" aria-label="LinkedIn">${icon('linkedin', 'currentColor')}</a><a href="https://github.com/Stuti-1908" target="_blank" rel="noopener" aria-label="GitHub">${icon('github', 'currentColor')}</a><a href="mailto:${EMAIL}" aria-label="Email">${ic('mail')}</a><a href="${CAL}" target="_blank" rel="noopener" aria-label="Book a call">${ic('calendar')}</a></div></div>
+    <nav aria-label="Site"><b>Explore</b><a href="${r}work.html">Work</a><a href="${r}consulting.html">Consulting</a><a href="${r}credentials.html">Credentials</a><a href="${r}resume.html">Resume</a><a href="${r}contact.html">Contact</a></nav>
+    <nav aria-label="Live products"><b>Live products</b><a href="https://www.yourinboxhero.com/" target="_blank" rel="noopener">yourinboxhero.com ↗</a><a href="https://thesopbot.com" target="_blank" rel="noopener">thesopbot.com ↗</a><a href="https://exoticlobby.com" target="_blank" rel="noopener">exoticlobby.com ↗</a></nav>
+    <div class="foot-book"><b>Start a project</b><p>A 20-minute intro call is the fastest way to see if I can help.</p><a class="btn btn-gold" href="${CAL}" target="_blank" rel="noopener">Book a call <span class="arr">→</span></a></div>
+  </div>
+  <div class="foot-bottom"><span>© 2026 Stuti Gohil. Every project shown was built solo; all but one are real client work.</span><a href="#main">Back to top ↑</a></div>
+</div></footer>
 <script src="${r}assets/js/site.js?v=${V}" type="module"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body></html>`;
@@ -119,15 +137,11 @@ const home = () => layout({
     <div class="avail rv"><span class="pulse"></span>Open to new AI builds and team roles</div>
     <h1 class="h-xl split">I build AI systems that take <span class="it">manual work</span> off your team's plate.</h1>
     <p class="lede rv d2">Voice agents, document and payment automation, RAG platforms and full AI products for companies in the US, UAE, Europe and India. I own the whole journey, <strong style="color:var(--ink)">from the first call to production</strong>, and plug straight into your team.</p>
-    <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="${CAL}" target="_blank" rel="noopener">Book a call</a><a class="btn btn-ghost" href="resume.html">Resume</a></div>
+    <div class="btns rv d3"><a class="btn btn-gold" href="${CAL}" target="_blank" rel="noopener">Book a 20-min call <span class="arr">→</span></a><a class="btn btn-ghost" href="work.html">View my work</a></div>
+    <form class="hero-ask rv d3" data-ask><span class="ha-ic">${ic('spark')}</span><label class="sr" for="hero-ask-in">Ask my portfolio</label><input id="hero-ask-in" name="q" autocomplete="off" maxlength="600" placeholder="Ask my portfolio: “Has she built voice agents?”"><button type="submit" class="btn btn-gold">Ask</button></form>
     <div class="hero-meta rv d3"><div><b data-count="10">0</b><span>products shipped to production</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b><span data-count="40">0</span>+</b><span>global certifications</span></div></div>
   </div>
-  <div class="globe-wrap rv d2"><div class="globe-fallback"></div><canvas id="globe"></canvas>
-    <div class="pin pin-ny" style="left:-4%;top:28%"><i></i><b>New York</b>&nbsp;· AI platforms</div>
-    <div class="pin pin-dxb" style="right:-2%;top:44%;animation-delay:-2s"><i></i><b>Dubai</b>&nbsp;· apps + consulting</div>
-    <div class="pin pin-eu" style="left:18%;top:6%;animation-delay:-4s"><i></i><b>Europe</b>&nbsp;· private AI systems</div>
-    <div class="pin pin-in" style="left:34%;bottom:6%;animation-delay:-3s"><i></i><b>India</b>&nbsp;· national-scale portal</div>
-  </div>
+  <div class="showcase rv d2" aria-label="Selected live products"><div class="sc-stack"><a class="sc-card" href="work/yourinboxhero.html" data-pos="0"><div class="sc-bar"><i></i><i></i><i></i><span>app.yourinboxhero.com / invoices</span></div><div class="sc-img"><img src="assets/dashboard-invoices.png" width="1535" height="674" alt="YourInboxHero dashboard listing overdue and upcoming invoices" decoding="async" fetchpriority="high"></div><div class="sc-cap"><b>YourInboxHero</b><span>Payment and document chasing SaaS</span><em>Case study →</em></div></a><a class="sc-card" href="work/exotic-lobby.html" data-pos="1"><div class="sc-bar"><i></i><i></i><i></i><span>Exotic Lobby · iOS & Android</span></div><div class="sc-img"><img src="assets/exotic-lobby.jpg" width="660" height="812" alt="Exotic Lobby mobile app with communities, events and garage" decoding="async" loading="lazy"></div><div class="sc-cap"><b>Exotic Lobby</b><span>Private hypercar network, iOS, Android, web</span><em>Case study →</em></div></a><a class="sc-card" href="work/a-square-merch.html" data-pos="2"><div class="sc-bar"><i></i><i></i><i></i><span>a-square-psi.vercel.app / catalogue</span></div><div class="sc-img"><img src="assets/a-square-catalogue.jpg" width="1917" height="866" alt="A Square Merch 3D coverflow catalogue" decoding="async" loading="lazy"></div><div class="sc-cap"><b>A Square Merch</b><span>Merch storefront with 3D catalogue and CMS</span><em>Case study →</em></div></a></div><div class="sc-dots"><button type="button" aria-label="Show YourInboxHero" class=on></button><button type="button" aria-label="Show Exotic Lobby"></button><button type="button" aria-label="Show A Square Merch"></button></div></div>
 </div></section>
 
 <div class="marquee"><div class="track">${Array(2).fill(['Sole engineer, end to end', 'iOS · Android · Web', '11-agent AI systems', 'Voice AI agents', 'RAG under 500 ms', 'Custom automations', 'AI training for leaders', 'US · Dubai · Europe · India'].map(t => `<span>${t}</span>`).join('')).join('')}</div></div>
@@ -142,7 +156,7 @@ const home = () => layout({
   </div>
 </div></section>
 
-<section class="sec" style="padding-top:40px"><div class="wrap">
+<section class="sec band band-dark"><div class="wrap">
   <div class="sec-head"><div><span class="eyebrow">Flagship work</span><h2 class="h-l split">Real clients. Real stakes. <span class="it">Shipped.</span></h2></div><a class="btn btn-ghost rv" href="work.html">All 10 case studies <span class="arr">→</span></a></div>
   ${flagship.map((s, i) => { const p = bySlug[s]; return `<div class="show">
     <div class="rv"><div class="idx">0${i + 1} / ${p.client.toUpperCase()} · ${p.region.toUpperCase()}</div><h3>${p.title}</h3><p>${p.oneLine}</p>
@@ -153,7 +167,7 @@ const home = () => layout({
   <div class="cards" style="margin-top:60px">${projects.filter(p => !flagship.includes(p.slug)).slice(0, 3).map(p => pcard(p)).join('')}</div>
 </div></section>
 
-<section class="sec"><div class="wrap">
+<section class="sec band band-tint"><div class="wrap">
   <div class="sec-head"><div><span class="eyebrow">What I deliver</span><h2 class="h-l split">Four disciplines. One accountable person.</h2></div></div>
   <div class="services rv">
     <div class="svc"><span class="n">01</span><h3>AI agents &amp; multi-agent systems</h3><p>Orchestrators, intent routers and specialist agents with governance built in: access scopes, human checkpoints and local-first options.</p><ul><li>LangGraph</li><li>CrewAI</li><li>n8n</li><li>Ollama</li><li>Vapi</li></ul></div>
@@ -205,8 +219,8 @@ const caseStudy = (p, i) => {
   <div class="cs-top"><div><span class="eyebrow">${p.client} · ${p.region} · ${p.year}</span><h1 class="split">${p.title}</h1><p class="lede rv">${p.oneLine}</p></div>
   <div class="btns rv">${p.live ? `<a class="btn btn-gold" href="${p.live}" target="_blank" rel="noopener">Visit ${p.liveLabel} ↗</a>` : ''}<a class="btn btn-ghost" href="${CAL}" target="_blank" rel="noopener">Discuss a build like this</a></div></div>
   <div class="facts rv"><div><small>Client</small><b>${p.client}</b></div><div><small>Region</small><b>${p.region}</b></div><div><small>My role</small><b>${p.role}</b></div><div><small>Platform</small><b>${p.platform}</b></div><div><small>Status</small><b>${p.status}</b></div></div>
-  <div class="stage cs-stage rv">${fit(mockups[p.slug]())}</div>
-  <div class="kband rv">${p.kpis.map(k => `<div><b>${k[0]}</b><span>${k[1]}</span></div>`).join('')}</div>
+  <div class="kband rv"><span class="kb-k">The result</span>${p.kpis.map(k => `<div><b>${k[0]}</b><span>${k[1]}</span></div>`).join('')}</div>
+${p.testimonial ? `  <figure class="tq rv"><blockquote>“${p.testimonial.quote}”</blockquote><figcaption><b>${p.testimonial.name}</b>${p.testimonial.title}</figcaption></figure>\n` : ''}  <div class="stage cs-stage rv">${fit(mockups[p.slug]())}</div>
 </div></section>
 <nav class="subnav"><div class="wrap">${[['brief', 'Brief'], ['owned', 'My role'], ['product', 'Product'], ['architecture', 'Architecture'], ['decisions', 'Decisions'], ['outcomes', 'Outcomes'], ['delivery', 'Delivery']].map(([id, l]) => `<a href="#${id}">${l}</a>`).join('')}<span class="sn-title">${p.title}</span></div></nav>
 
@@ -370,6 +384,33 @@ out('credentials.html', credentials());
 out('contact.html', contact());
 out('resume.html', resume());
 projects.forEach((p, i) => out(`work/${p.slug}.html`, caseStudy(p, i)));
+
+// ---------- knowledge file for the "Ask my portfolio" chat (api/ask.js) ----------
+const strip = s => String(s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+const kb = [
+  `# Stuti Gohil: AI Engineer & Global AI Consultant`,
+  `Positioning: builds AI systems that take manual work off teams: voice agents, document and payment automation, RAG platforms and full AI products, shipped end to end for companies in the US, UAE, Europe and India. Owns the whole lifecycle (discovery, architecture, build, launch, handover) and plugs into existing teams.`,
+  `Open to: new AI builds and team roles. Book a 20-minute intro call: ${CAL}. Contact form: ${SITE}/contact.html. Email: ${EMAIL}. LinkedIn: https://linkedin.com/in/stuti-gohil. GitHub: https://github.com/Stuti-1908. Resume: ${SITE}/resume.html.`,
+  `Consulting: advises and trains film directors, operations managers in Dubai, a welfare group HR team in Dubai, and US founders on AI, automation and agent systems; success is measured by how independent the client is afterwards.`,
+  `Services: (1) AI agents and multi-agent systems (LangGraph, CrewAI, n8n, Ollama, Vapi); (2) mobile and web products (React Native, Next.js, Supabase, TypeScript); (3) RAG and LLM engineering (pgvector, Qdrant, Redis, GPT-4, Claude, Gemini); (4) custom automation and AI enablement (n8n, Make, Zapier, workshops).`,
+  `Education: B.Tech in Information & Communication Technology, Pandit Deendayal Energy University, Gandhinagar (Nov 2022 to May 2026), CPI 8.89/10.`,
+  ...projects.map(p => [
+    `\n## Project: ${p.title} (${SITE}/work/${p.slug}.html)`,
+    `Client: ${p.client}. Region: ${p.region}. Year: ${p.year}. Role: ${p.role}. Platform: ${p.platform}. Status: ${p.status}.${p.live ? ` Live at ${p.live}.` : ''}`,
+    `Summary: ${strip(p.oneLine)}`,
+    `Brief: ${p.brief.map(strip).join(' ')}`,
+    `Challenges: ${p.challenges.map(strip).join(' | ')}`,
+    `Features: ${p.features.map(f => `${f[1]}: ${strip(f[2])}`).join(' | ')}`,
+    `Key decisions: ${p.decisions.map(d => `${d[0]}: ${strip(d[1])}`).join(' | ')}`,
+    `Outcomes: ${p.outcomes.map(o => `${o[0]} ${o[1]}`).join('; ')}`,
+    owned[p.slug] ? `What Stuti personally owned: ${owned[p.slug].join('; ')}` : '',
+    `Stack: ${p.stack.join(', ')}`,
+  ].filter(Boolean).join('\n')),
+  `\n## Certifications`,
+  [...certs, ...moreCerts].map(c => `${c[0]}: ${c[1]}`).join('; '),
+].join('\n');
+writeFileSync(join(ROOT, 'api/_portfolio.js'), `// Generated by _build/build.mjs from _build/data.mjs. Do not edit by hand.\nexport const PORTFOLIO = ${JSON.stringify(kb)};\nexport const CAL = ${JSON.stringify(CAL)};\n`);
+
 // sitemap + robots
 const today = new Date().toISOString().slice(0, 10);
 writeFileSync(join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(f => `  <url><loc>${SITE}/${f === 'index.html' ? '' : f}</loc><lastmod>${today}</lastmod></url>`).join('\n')}\n</urlset>\n`);

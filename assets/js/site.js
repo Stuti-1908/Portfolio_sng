@@ -254,3 +254,77 @@ if (cg && matchMedia('(max-width:760px)').matches) {
   more.addEventListener('click', open);
   document.querySelectorAll('.filterbar button').forEach(b => b.addEventListener('click', open));
 }
+
+// ---------- Ask my portfolio (AI chat, streams from /api/ask) ----------
+const ask = document.getElementById('ask');
+if (ask) {
+  const fab = document.querySelector('.ask-fab'), log = ask.querySelector('.ask-log'), form = ask.querySelector('.ask-form');
+  const input = form.q, sendBtn = form.querySelector('button'), chips = ask.querySelector('.ask-chips');
+  const cal = ask.querySelector('.ask-note a').href;
+  const history = [];
+  let busy = false;
+  const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
+  const linkify = s => esc(s).replace(/(https?:\/\/[^\s<)]+[^\s<).,;:!?])/g, u => `<a href="${u}" target="_blank" rel="noopener">${/cal\.com/.test(u) ? 'Book a call' : u.replace(/^https?:\/\/(www\.)?/, '').replace(/\.html$/, '')}</a>`);
+  const add = (cls, text = '') => { const d = document.createElement('div'); d.className = 'ask-msg ' + cls; d.innerHTML = linkify(text); log.append(d); log.scrollTop = log.scrollHeight; return d; };
+  const open = () => { ask.hidden = false; document.body.classList.add('ask-open'); setTimeout(() => input.focus(), 50); };
+  const close = () => { ask.hidden = true; document.body.classList.remove('ask-open'); fab?.focus(); };
+  fab?.addEventListener('click', open);
+  ask.querySelector('.ask-x').addEventListener('click', close);
+  addEventListener('keydown', e => { if (e.key === 'Escape' && !ask.hidden) close(); });
+
+  async function send(q) {
+    q = (q || '').trim().slice(0, 600);
+    if (!q || busy) return;
+    open(); chips?.remove();
+    busy = true; sendBtn.disabled = true; input.value = '';
+    add('me', q); history.push({ role: 'user', content: q });
+    const bubble = add('bot typing');
+    let text = '';
+    try {
+      const res = await fetch('/api/ask', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ messages: history }) });
+      if (!res.ok || !res.body) {
+        const data = await res.json().catch(() => ({}));
+        text = res.status === 429 && data.error ? data.error
+          : `The assistant is offline right now. You can book a 20-minute call with Stuti at ${cal}`;
+      } else {
+        const reader = res.body.getReader(), dec = new TextDecoder();
+        for (;;) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          text += dec.decode(value, { stream: true });
+          bubble.classList.remove('typing'); bubble.innerHTML = linkify(text); log.scrollTop = log.scrollHeight;
+        }
+      }
+    } catch (_) {
+      text = `Connection problem. Please try again, or book a call at ${cal}`;
+    }
+    bubble.classList.remove('typing'); bubble.innerHTML = linkify(text || 'Sorry, I could not answer that.');
+    if (text) history.push({ role: 'assistant', content: text }); else history.pop();
+    busy = false; sendBtn.disabled = false; input.focus();
+  }
+  form.addEventListener('submit', e => { e.preventDefault(); send(input.value); });
+  chips?.addEventListener('click', e => { if (e.target.closest('button')) send(e.target.closest('button').textContent); });
+  document.querySelectorAll('form[data-ask]').forEach(f => f.addEventListener('submit', e => { e.preventDefault(); const v = f.q.value; f.q.value = ''; v.trim() ? send(v) : open(); }));
+}
+
+// hero product showcase: rotate cards, pause on hover / off screen / reduced motion
+const sc = document.querySelector('.showcase');
+if (sc) {
+  const cards = [...sc.querySelectorAll('.sc-card')], dots = [...sc.querySelectorAll('.sc-dots button')];
+  let front = 0, timer = 0, paused = false, visible = true;
+  const show = k => {
+    front = (k + cards.length) % cards.length;
+    cards.forEach((c, i) => { const pos = (i - front + cards.length) % cards.length; c.dataset.pos = pos; c.tabIndex = pos ? -1 : 0; c.setAttribute('aria-hidden', pos ? 'true' : 'false'); });
+    dots.forEach((d, i) => d.classList.toggle('on', i === front));
+  };
+  const tick = () => { if (!paused && visible && !document.hidden) show(front + 1); };
+  show(0);
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(tick, 4500);
+  sc.addEventListener('pointerenter', () => paused = true);
+  sc.addEventListener('pointerleave', () => paused = false);
+  sc.addEventListener('focusin', () => paused = true);
+  sc.addEventListener('focusout', () => paused = false);
+  dots.forEach((d, i) => d.addEventListener('click', () => show(i)));
+  cards.forEach((c, i) => c.addEventListener('click', e => { if (c.dataset.pos !== '0') { e.preventDefault(); show(i); } }));
+  new IntersectionObserver(es => es.forEach(e => visible = e.isIntersecting)).observe(sc);
+}
