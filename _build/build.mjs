@@ -10,6 +10,8 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const bySlug = Object.fromEntries(projects.map(p => [p.slug, p]));
 const V = Date.now().toString(36);
 const RESUME_ID = '1N5rvMqq527385iVeyLDKMqBrOPSDqvy0';
+// Public site URL: change this one line after connecting a custom domain
+const SITE = 'https://portfolio-self-beta-46.vercel.app';
 const EMAIL = 'sng19.work@gmail.com', PHONE = '+91 63550 46464';
 
 
@@ -61,7 +63,13 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title}</title><meta name="description" content="${desc}">
-<meta property="og:title" content="${title}"><meta property="og:description" content="${desc}"><meta name="theme-color" content="#07070A">
+<link rel="canonical" href="{{CANON}}">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Stuti Gohil"><meta property="og:url" content="{{CANON}}">
+<meta property="og:title" content="${title}"><meta property="og:description" content="${desc}">
+<meta property="og:image" content="${SITE}/assets/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Stuti Gohil, AI Engineer: I build AI systems that take manual work off your team's plate">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title}"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${SITE}/assets/og.png">
+<meta name="theme-color" content="#F7F9FC">${active === 'home' ? `
+<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: 'Stuti Gohil', url: SITE, image: `${SITE}/assets/og.png`, jobTitle: 'AI Engineer & Global AI Consultant', email: `mailto:${EMAIL}`, knowsAbout: ['AI agents', 'Voice AI', 'Retrieval-augmented generation', 'Workflow automation', 'React Native', 'Full-stack development'], sameAs: ['https://linkedin.com/in/stuti-gohil', 'https://github.com/Stuti-1908'] })}</script>` : ''}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234F46E5'/%3E%3Ctext x='50%25' y='58%25' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='36' text-anchor='middle' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -80,6 +88,7 @@ ${ctaBlock(r)}
 <footer><div class="wrap"><span>© 2026 Stuti Gohil. Every project shown was built solo; all but one are real client work.</span>
 <nav><a href="${r}contact.html">Contact</a><a href="mailto:${EMAIL}">Email</a><a href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Stuti-1908" target="_blank" rel="noopener">GitHub</a><a href="https://thesopbot.com" target="_blank" rel="noopener">thesopbot.com</a><a href="https://exoticlobby.com" target="_blank" rel="noopener">exoticlobby.com</a></nav></div></footer>
 <script src="${r}assets/js/site.js?v=${V}" type="module"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body></html>`;
 };
 
@@ -100,14 +109,14 @@ const pcard = (p, depth = 0) => `<a class="pcard rv" href="${depth ? '' : 'work/
 // ================= HOME =================
 const home = () => layout({
   title: 'Stuti Gohil · AI Engineer & Global AI Consultant', active: 'home',
-  desc: 'AI Engineer and Global AI Consultant. Solo-built production AI products, iOS/Android apps and multi-agent systems for clients in the US, UAE and Europe.',
+  desc: 'AI Engineer who builds AI systems that take manual work off teams: voice agents, document and payment automation, RAG platforms and full AI products, shipped end to end.',
   body: `
 <section class="hero"><div class="aura" style="width:620px;height:620px;right:-120px;top:10%;background:rgba(79,70,229,.09)"></div>
 <div class="wrap hero-grid">
   <div>
-    <div class="avail rv"><span class="pulse"></span>Available for AI engineering roles and global engagements</div>
-    <h1 class="h-xl split">I build and ship <span class="it">production AI</span>, end to end.</h1>
-    <p class="lede rv d2">AI engineer and consultant for founders and teams across the US, UAE, Europe and India. From voice agents and RAG platforms to iOS and Android apps, I own the whole journey: <strong style="color:var(--ink)">discovery, architecture, build, launch</strong>, and training your team to run it.</p>
+    <div class="avail rv"><span class="pulse"></span>Open to new AI builds and team roles</div>
+    <h1 class="h-xl split">I build AI systems that take <span class="it">manual work</span> off your team's plate.</h1>
+    <p class="lede rv d2">Voice agents, document and payment automation, RAG platforms and full AI products for companies in the US, UAE, Europe and India. I own the whole journey, <strong style="color:var(--ink)">from the first call to production</strong>, and plug straight into your team.</p>
     <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="resume.html">Resume</a><a class="btn btn-ghost" href="contact.html">Start a conversation</a></div>
     <div class="hero-meta rv d3"><div><b data-count="10">0</b><span>products shipped to production</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b><span data-count="40">0</span>+</b><span>global certifications</span></div></div>
   </div>
@@ -122,12 +131,12 @@ const home = () => layout({
 <div class="marquee"><div class="track">${Array(2).fill(['Sole engineer, end to end', 'iOS · Android · Web', '11-agent AI systems', 'Voice AI agents', 'RAG under 500 ms', 'Custom automations', 'AI training for leaders', 'US · Dubai · Europe · India'].map(t => `<span>${t}</span>`).join('')).join('')}</div></div>
 
 <section class="sec"><div class="wrap">
-  <div class="sec-head"><div><span class="eyebrow">The scoreboard</span><h2 class="h-l split">Results, not responsibilities.</h2></div><p class="lede rv">Every number below comes from a production system I built and shipped.</p></div>
+  <div class="sec-head"><div><span class="eyebrow">The scoreboard</span><h2 class="h-l split">Results, not responsibilities.</h2></div><p class="lede rv">Every number below comes from a live system I built, measured in what it changed for the people using it.</p></div>
   <div class="score rv">
-    <div><b><span data-count="5000">0</span><sup>+</sup></b><p>users on launch day for a CII national event, with zero corrupted records</p></div>
-    <div><b>&lt;<span data-count="500">0</span><sup>ms</sup></b><p>retrieval latency on production RAG systems</p></div>
-    <div><b><span data-count="80">0</span><sup>%</sup></b><p>lighter media payload for a live hypercar app across three continents</p></div>
-    <div><b><span data-count="40">0</span><sup>+ hrs</sup></b><p>QA time saved per release by a self-healing test tool I created</p></div>
+    <div><b><span data-count="5000">0</span><sup>+</sup></b><p>people served on launch day by a national CII event portal, with zero corrupted records</p></div>
+    <div><b>&lt;<span data-count="500">0</span><sup>ms</sup></b><p>for an AI coach to answer founders over SMS, drawing on their full history</p></div>
+    <div><b><span data-count="80">0</span><sup>%</sup></b><p>less data for hypercar-club members to load, fixing the app for users across three continents</p></div>
+    <div><b><span data-count="40">0</span><sup>+ hrs</sup></b><p>QA hours handed back to the team every release by a self-healing test tool</p></div>
   </div>
 </div></section>
 
@@ -153,7 +162,7 @@ const home = () => layout({
 </div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap">
-  <div class="sec-head"><div><span class="eyebrow">How I work</span><h2 class="h-l split">Scratch to production. <span class="it">Alone.</span></h2></div></div>
+  <div class="sec-head"><div><span class="eyebrow">How I work</span><h2 class="h-l split">Scratch to production. <span class="it">One owner.</span></h2></div></div>
   <div class="process rv">
     <div class="step"><div class="dot">01</div><h4>Discover</h4><p>Client calls, process mapping and the real problem behind the request.</p></div>
     <div class="step"><div class="dot">02</div><h4>Architect</h4><p>System design, data model, security and the cost/latency trade-offs.</p></div>
@@ -161,7 +170,7 @@ const home = () => layout({
     <div class="step"><div class="dot">04</div><h4>Ship</h4><p>Deploy, monitor, harden and deliver to the live domain or app store.</p></div>
     <div class="step"><div class="dot">05</div><h4>Hand over</h4><p>Training and documentation until the client runs it themselves.</p></div>
   </div>
-  <div class="solo-note rv"><span class="solo-ic">${ic('spark')}</span><span>No agency, no team behind the curtain. <b>Every project on this site was delivered by me, solo</b>, for clients in the US, UAE, Europe and India.</span></div>
+  <div class="solo-note rv"><span class="solo-ic">${ic('spark')}</span><span>One accountable owner across the whole lifecycle, from discovery to handover. <b>I have shipped solo, and I plug straight into existing teams</b> for clients in the US, UAE, Europe and India.</span></div>
 </div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap"><div class="feature rv">
@@ -177,8 +186,8 @@ const home = () => layout({
   </div></div></div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap">
-  <div class="sec-head"><div><span class="eyebrow">Credentials</span><h2 class="h-l split">Trained by the institutions that define the field.</h2></div><a class="btn btn-ghost rv" href="credentials.html">View all certificates <span class="arr">→</span></a></div>
-  <div class="issuers rv">${[['Stanford', 'Online'], ['Oracle', 'OCI GenAI Pro'], ['Google', 'Cloud · AI'], ['Microsoft', 'Azure · AI'], ['IBM', 'ML Honors'], ['AWS', 'ML · Cloud'], ['Imperial', 'College London'], ['McKinsey', 'Forward'], ['BCG', 'Data Science'], ['MongoDB', 'Vector Search'], ['Cisco', 'Python'], ['ISRO', 'Certified']].map(([a, b]) => `<div>${logoFor(a)}${a}<small>${b}</small></div>`).join('')}</div>
+  <div class="sec-head"><div><span class="eyebrow">Credentials</span><h2 class="h-l split">Certified across the AI stack.</h2></div><a class="btn btn-ghost rv" href="credentials.html">View all certificates <span class="arr">→</span></a></div>
+  <div class="issuers rv">${[['Stanford', 'Advanced ML'], ['Oracle', 'OCI GenAI Pro'], ['Google', 'Gen AI · RAG'], ['Microsoft', 'Azure GenAI'], ['AWS', 'ML · RAG'], ['DeepLearning.AI', 'LLMs']].map(([a, b]) => `<div>${logoFor(a)}${a}<small>${b}</small></div>`).join('')}</div>
 </div></section>`
 });
 
@@ -360,7 +369,8 @@ const resume = () => layout({
 });
 
 // ================= WRITE =================
-const out = (file, html) => { const p = join(ROOT, file); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, html); };
+const pages = [];
+const out = (file, html) => { pages.push(file); const url = `${SITE}/${file === 'index.html' ? '' : file}`; html = html.replaceAll('{{CANON}}', url); const p = join(ROOT, file); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, html); };
 out('index.html', home());
 out('work.html', work());
 out('consulting.html', consulting());
@@ -368,4 +378,8 @@ out('credentials.html', credentials());
 out('contact.html', contact());
 out('resume.html', resume());
 projects.forEach((p, i) => out(`work/${p.slug}.html`, caseStudy(p, i)));
+// sitemap + robots
+const today = new Date().toISOString().slice(0, 10);
+writeFileSync(join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(f => `  <url><loc>${SITE}/${f === 'index.html' ? '' : f}</loc><lastmod>${today}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+writeFileSync(join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 console.log(`Built ${6 + projects.length} pages`);
