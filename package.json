@@ -4,8 +4,5 @@
   "type": "module",
   "scripts": {
     "build:site": "node _build/build.mjs"
-  },
-  "dependencies": {
-    "@anthropic-ai/sdk": "^1.3.0"
   }
 }
