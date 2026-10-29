@@ -264,7 +264,7 @@ if (ask) {
   const history = [];
   let busy = false;
   const esc = s => s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c]);
-  const linkify = s => esc(s).replace(/(https?:\/\/[^\s<)]+[^\s<).,;:!?])/g, '<a href="$1" target="_blank" rel="noopener">$1</a>');
+  const linkify = s => esc(s).replace(/(https?:\/\/[^\s<)]+[^\s<).,;:!?])/g, u => `<a href="${u}" target="_blank" rel="noopener">${/cal\.com/.test(u) ? 'Book a call' : u.replace(/^https?:\/\/(www\.)?/, '').replace(/\.html$/, '')}</a>`);
   const add = (cls, text = '') => { const d = document.createElement('div'); d.className = 'ask-msg ' + cls; d.innerHTML = linkify(text); log.append(d); log.scrollTop = log.scrollHeight; return d; };
   const open = () => { ask.hidden = false; document.body.classList.add('ask-open'); setTimeout(() => input.focus(), 50); };
   const close = () => { ask.hidden = true; document.body.classList.remove('ask-open'); fab?.focus(); };

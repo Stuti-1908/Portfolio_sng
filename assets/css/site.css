@@ -874,7 +874,7 @@ img,svg,video{max-width:100%}
 .ask-msg{max-width:88%;padding:10px 14px;border-radius:16px;font-size:14.5px;line-height:1.55;white-space:pre-wrap;word-wrap:break-word}
 .ask-msg.bot{align-self:flex-start;background:var(--panel-2);border:1px solid var(--line);border-bottom-left-radius:6px}
 .ask-msg.me{align-self:flex-end;background:var(--gold);color:#fff;border-bottom-right-radius:6px}
-.ask-msg a{color:var(--gold-2);text-decoration:underline;text-underline-offset:2px;word-break:break-all}
+.ask-msg a{color:var(--gold-2);text-decoration:underline;text-underline-offset:2px;overflow-wrap:anywhere}
 .ask-msg.typing::after{content:"";display:inline-block;width:6px;height:6px;margin-left:4px;border-radius:50%;background:var(--muted);animation:askdot 1s infinite}
 @keyframes askdot{50%{opacity:.2}}
 .ask-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
