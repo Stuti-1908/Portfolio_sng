@@ -78,6 +78,16 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 <link rel="stylesheet" href="${r}assets/css/site.css?v=${V}">
 </head><body>
 <a class="skip" href="#main">Skip to content</a>
+<button class="ask-fab" type="button" aria-haspopup="dialog" aria-controls="ask">${ic('spark')}<span>Ask my portfolio</span></button>
+<section class="ask" id="ask" role="dialog" aria-modal="false" aria-labelledby="ask-title" hidden>
+  <header class="ask-head"><span class="ask-av">${ic('spark')}</span><div><b id="ask-title">Ask my portfolio</b><small>AI assistant · answers from Stuti's case studies</small></div><button class="ask-x" type="button" aria-label="Close chat">${ic('x')}</button></header>
+  <div class="ask-log" aria-live="polite">
+    <div class="ask-msg bot">Hi! Ask me anything about Stuti's work: projects, skills, or whether she could help with something you're building.</div>
+    <div class="ask-chips">${['Has she built voice AI agents?', 'What did she build for YourInboxHero?', 'Could she automate our document collection?', 'Is she open to joining a team?'].map(q => `<button type="button">${q}</button>`).join('')}</div>
+  </div>
+  <form class="ask-form"><label class="sr" for="ask-in">Your question</label><input id="ask-in" name="q" autocomplete="off" maxlength="600" placeholder="Ask about her work…"><button type="submit" aria-label="Send">${ic('arrowUp')}</button></form>
+  <p class="ask-note">AI answers can be imperfect. <a href="${CAL}" target="_blank" rel="noopener">Book a call</a> to talk to Stuti directly.</p>
+</section>
 <div class="progress"></div>
 <div class="qv" role="dialog" aria-modal="true" aria-label="Project preview"><div class="qv-card"><button class="qv-x" aria-label="Close">${ic('x')}</button><div class="qv-vis"></div><div class="qv-body"></div></div></div>
 <header class="nav"><div class="wrap">
@@ -120,6 +130,7 @@ const home = () => layout({
     <h1 class="h-xl split">I build AI systems that take <span class="it">manual work</span> off your team's plate.</h1>
     <p class="lede rv d2">Voice agents, document and payment automation, RAG platforms and full AI products for companies in the US, UAE, Europe and India. I own the whole journey, <strong style="color:var(--ink)">from the first call to production</strong>, and plug straight into your team.</p>
     <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="${CAL}" target="_blank" rel="noopener">Book a call</a><a class="btn btn-ghost" href="resume.html">Resume</a></div>
+    <form class="hero-ask rv d3" data-ask><span class="ha-ic">${ic('spark')}</span><label class="sr" for="hero-ask-in">Ask my portfolio</label><input id="hero-ask-in" name="q" autocomplete="off" maxlength="600" placeholder="Ask my portfolio: “Has she built voice agents?”"><button type="submit" class="btn btn-gold">Ask</button></form>
     <div class="hero-meta rv d3"><div><b data-count="10">0</b><span>products shipped to production</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b><span data-count="40">0</span>+</b><span>global certifications</span></div></div>
   </div>
   <div class="globe-wrap rv d2"><div class="globe-fallback"></div><canvas id="globe"></canvas>
@@ -370,6 +381,33 @@ out('credentials.html', credentials());
 out('contact.html', contact());
 out('resume.html', resume());
 projects.forEach((p, i) => out(`work/${p.slug}.html`, caseStudy(p, i)));
+
+// ---------- knowledge file for the "Ask my portfolio" chat (api/ask.js) ----------
+const strip = s => String(s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+const kb = [
+  `# Stuti Gohil: AI Engineer & Global AI Consultant`,
+  `Positioning: builds AI systems that take manual work off teams: voice agents, document and payment automation, RAG platforms and full AI products, shipped end to end for companies in the US, UAE, Europe and India. Owns the whole lifecycle (discovery, architecture, build, launch, handover) and plugs into existing teams.`,
+  `Open to: new AI builds and team roles. Book a 20-minute intro call: ${CAL}. Contact form: ${SITE}/contact.html. Email: ${EMAIL}. LinkedIn: https://linkedin.com/in/stuti-gohil. GitHub: https://github.com/Stuti-1908. Resume: ${SITE}/resume.html.`,
+  `Consulting: advises and trains film directors, operations managers in Dubai, a welfare group HR team in Dubai, and US founders on AI, automation and agent systems; success is measured by how independent the client is afterwards.`,
+  `Services: (1) AI agents and multi-agent systems (LangGraph, CrewAI, n8n, Ollama, Vapi); (2) mobile and web products (React Native, Next.js, Supabase, TypeScript); (3) RAG and LLM engineering (pgvector, Qdrant, Redis, GPT-4, Claude, Gemini); (4) custom automation and AI enablement (n8n, Make, Zapier, workshops).`,
+  `Education: B.Tech in Information & Communication Technology, Pandit Deendayal Energy University, Gandhinagar (Nov 2022 to May 2026), CPI 8.89/10.`,
+  ...projects.map(p => [
+    `\n## Project: ${p.title} (${SITE}/work/${p.slug}.html)`,
+    `Client: ${p.client}. Region: ${p.region}. Year: ${p.year}. Role: ${p.role}. Platform: ${p.platform}. Status: ${p.status}.${p.live ? ` Live at ${p.live}.` : ''}`,
+    `Summary: ${strip(p.oneLine)}`,
+    `Brief: ${p.brief.map(strip).join(' ')}`,
+    `Challenges: ${p.challenges.map(strip).join(' | ')}`,
+    `Features: ${p.features.map(f => `${f[1]}: ${strip(f[2])}`).join(' | ')}`,
+    `Key decisions: ${p.decisions.map(d => `${d[0]}: ${strip(d[1])}`).join(' | ')}`,
+    `Outcomes: ${p.outcomes.map(o => `${o[0]} ${o[1]}`).join('; ')}`,
+    owned[p.slug] ? `What Stuti personally owned: ${owned[p.slug].join('; ')}` : '',
+    `Stack: ${p.stack.join(', ')}`,
+  ].filter(Boolean).join('\n')),
+  `\n## Certifications`,
+  [...certs, ...moreCerts].map(c => `${c[0]}: ${c[1]}`).join('; '),
+].join('\n');
+writeFileSync(join(ROOT, 'api/_portfolio.js'), `// Generated by _build/build.mjs from _build/data.mjs. Do not edit by hand.\nexport const PORTFOLIO = ${JSON.stringify(kb)};\nexport const CAL = ${JSON.stringify(CAL)};\n`);
+
 // sitemap + robots
 const today = new Date().toISOString().slice(0, 10);
 writeFileSync(join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(f => `  <url><loc>${SITE}/${f === 'index.html' ? '' : f}</loc><lastmod>${today}</lastmod></url>`).join('\n')}\n</urlset>\n`);
