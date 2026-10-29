@@ -21,6 +21,9 @@ ${PORTFOLIO}
 
 const KEY = process.env.GEMINI_API_KEY;
 const MODEL = process.env.GEMINI_MODEL || 'gemini-flash-latest';
+// Tried in order when a model is overloaded (503), rate limited (429) or unavailable (404)
+const MODELS = [...new Set([MODEL, 'gemini-2.5-flash', 'gemini-flash-lite-latest', 'gemini-2.5-flash-lite'])];
+const RETRYABLE = new Set([404, 429, 500, 503]);
 const BASE = process.env.GEMINI_BASE_URL || 'https://generativelanguage.googleapis.com';
 const MAX_TURNS = 10, MAX_CHARS = 600, WINDOW_MS = 60_000, PER_WINDOW = 8;
 const hits = new Map();
@@ -48,8 +51,12 @@ export default async function handler(req, res) {
     const info = { ok: true, gemini: Boolean(KEY), model: MODEL };
     if (KEY && req.query?.test) {
       try {
-        const r = await fetch(`${BASE}/v1beta/models/${MODEL}:generateContent`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': KEY }, body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'Say hi in 3 words.' }] }] }) });
-        info.testStatus = r.status; info.testReply = (await r.text()).slice(0, 400);
+        info.tests = [];
+        for (const model of MODELS) {
+          const r = await fetch(`${BASE}/v1beta/models/${model}:generateContent`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': KEY }, body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'Say hi in 3 words.' }] }] }) });
+          info.tests.push({ model, status: r.status, reply: (await r.text()).slice(0, 160) });
+          if (r.ok) break;
+        }
       } catch (e) { info.testError = String(e?.message || e); }
     }
     return res.status(200).json(info);
@@ -68,7 +75,7 @@ export default async function handler(req, res) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), 20_000); // stay well inside the function time limit
   try {
-    const call = thinking => fetch(`${BASE}/v1beta/models/${MODEL}:streamGenerateContent?alt=sse`, {
+    const call = (model, thinking) => fetch(`${BASE}/v1beta/models/${model}:streamGenerateContent?alt=sse`, {
       method: 'POST',
       signal: ctrl.signal,
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': KEY },
@@ -78,8 +85,13 @@ export default async function handler(req, res) {
         generationConfig: { maxOutputTokens: 2048, temperature: 0.4, ...(thinking ? { thinkingConfig: { thinkingBudget: 0 } } : {}) },
       }),
     });
-    let r = await call(true);
-    if (r.status === 400) r = await call(false); // model without a thinking budget setting
+    let r;
+    for (const model of MODELS) {
+      r = await call(model, true);
+      if (r.status === 400) r = await call(model, false); // model without a thinking budget setting
+      if (r.ok || !RETRYABLE.has(r.status)) break;
+      console.error('ask error', model, r.status, '- trying next model');
+    }
     if (!r.ok || !r.body) throw new Error(`gemini ${r.status} ${(await r.text()).slice(0, 300)}`);
     const reader = r.body.getReader(), dec = new TextDecoder();
     let buf = '';
