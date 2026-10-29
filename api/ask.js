@@ -44,7 +44,16 @@ function cleanMessages(raw) {
 }
 
 export default async function handler(req, res) {
-  if (req.method === 'GET') return res.status(200).json({ ok: true, gemini: Boolean(KEY), model: MODEL }); // health check, no secrets
+  if (req.method === 'GET') { // health check (no secrets); add ?test=1 to try a tiny Gemini call
+    const info = { ok: true, gemini: Boolean(KEY), model: MODEL };
+    if (KEY && req.query?.test) {
+      try {
+        const r = await fetch(`${BASE}/v1beta/models/${MODEL}:generateContent`, { method: 'POST', headers: { 'Content-Type': 'application/json', 'x-goog-api-key': KEY }, body: JSON.stringify({ contents: [{ role: 'user', parts: [{ text: 'Say hi in 3 words.' }] }] }) });
+        info.testStatus = r.status; info.testReply = (await r.text()).slice(0, 400);
+      } catch (e) { info.testError = String(e?.message || e); }
+    }
+    return res.status(200).json(info);
+  }
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'Method not allowed' }); }
   const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
   if (limited(ip)) return res.status(429).json({ error: 'Too many questions in a minute. Please try again shortly.' });
