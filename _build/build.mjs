@@ -10,6 +10,9 @@ const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const bySlug = Object.fromEntries(projects.map(p => [p.slug, p]));
 const V = Date.now().toString(36);
 const RESUME_ID = '1N5rvMqq527385iVeyLDKMqBrOPSDqvy0';
+// Public site URL: change this one line after connecting a custom domain
+const SITE = 'https://portfolio-self-beta-46.vercel.app';
+const CAL = 'https://cal.com/stuti-sg19';
 const EMAIL = 'sng19.work@gmail.com', PHONE = '+91 63550 46464';
 
 
@@ -61,13 +64,20 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
 <html lang="en"><head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
 <title>${title}</title><meta name="description" content="${desc}">
-<meta property="og:title" content="${title}"><meta property="og:description" content="${desc}"><meta name="theme-color" content="#07070A">
+<link rel="canonical" href="{{CANON}}">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Stuti Gohil"><meta property="og:url" content="{{CANON}}">
+<meta property="og:title" content="${title}"><meta property="og:description" content="${desc}">
+<meta property="og:image" content="${SITE}/assets/og.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Stuti Gohil, AI Engineer: I build AI systems that take manual work off your team's plate">
+<meta name="twitter:card" content="summary_large_image"><meta name="twitter:title" content="${title}"><meta name="twitter:description" content="${desc}"><meta name="twitter:image" content="${SITE}/assets/og.png">
+<meta name="theme-color" content="#F7F9FC">${active === 'home' ? `
+<script type="application/ld+json">${JSON.stringify({ '@context': 'https://schema.org', '@type': 'Person', name: 'Stuti Gohil', url: SITE, image: `${SITE}/assets/og.png`, jobTitle: 'AI Engineer & Global AI Consultant', email: `mailto:${EMAIL}`, knowsAbout: ['AI agents', 'Voice AI', 'Retrieval-augmented generation', 'Workflow automation', 'React Native', 'Full-stack development'], sameAs: ['https://linkedin.com/in/stuti-gohil', 'https://github.com/Stuti-1908'] })}</script>` : ''}
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%234F46E5'/%3E%3Ctext x='50%25' y='58%25' font-family='Arial,Helvetica,sans-serif' font-weight='700' font-size='36' text-anchor='middle' fill='%23fff'%3ES%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script>try{if(localStorage.getItem('theme')==='dark')document.documentElement.dataset.theme='dark'}catch(e){}</script>
 <link rel="stylesheet" href="${r}assets/css/site.css?v=${V}">
 </head><body>
+<a class="skip" href="#main">Skip to content</a>
 <div class="progress"></div>
 <div class="qv" role="dialog" aria-modal="true" aria-label="Project preview"><div class="qv-card"><button class="qv-x" aria-label="Close">${ic('x')}</button><div class="qv-vis"></div><div class="qv-body"></div></div></div>
 <header class="nav"><div class="wrap">
@@ -75,11 +85,12 @@ const layout = ({ title, desc, active = '', depth = 0, body }) => {
   <div class="nav-tools"><button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode"><svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg><svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg></button><button class="burger" aria-label="Menu">${ic('menu')}</button></div>
   <nav class="nav-links">${link('index.html', 'Home', 'home')}${link('work.html', 'Work', 'work')}${link('consulting.html', 'Consulting', 'consulting')}${link('credentials.html', 'Credentials', 'credentials')}${link('resume.html', 'Resume', 'resume')}<a class="cta-pill" href="${r}contact.html">Hire me</a></nav>
 </div></header>
-<main>${body.replaceAll("{{R}}", r)}</main>
+<main id="main">${body.replaceAll("{{R}}", r)}</main>
 ${ctaBlock(r)}
 <footer><div class="wrap"><span>© 2026 Stuti Gohil. Every project shown was built solo; all but one are real client work.</span>
 <nav><a href="${r}contact.html">Contact</a><a href="mailto:${EMAIL}">Email</a><a href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">LinkedIn</a><a href="https://github.com/Stuti-1908" target="_blank" rel="noopener">GitHub</a><a href="https://thesopbot.com" target="_blank" rel="noopener">thesopbot.com</a><a href="https://exoticlobby.com" target="_blank" rel="noopener">exoticlobby.com</a></nav></div></footer>
 <script src="${r}assets/js/site.js?v=${V}" type="module"></script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body></html>`;
 };
 
@@ -87,7 +98,7 @@ const ctaBlock = (r = '') => `<section class="cta-block">
   <div class="aura" style="width:700px;height:500px;left:50%;top:40%;translate:-50% -50%;background:rgba(79,70,229,.10)"></div>
   <div class="wrap"><span class="eyebrow">Open to full-time roles &amp; global engagements</span>
   <h2 class="h-xl split">Bring me the problem. I'll bring it to <span class="it">production.</span></h2>
-  <div class="btns"><a class="btn btn-gold" href="${r}contact.html">Start a conversation <span class="arr">→</span></a><a class="btn btn-ghost" href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">Connect on LinkedIn ↗</a></div></div></section>`;
+  <div class="btns"><a class="btn btn-gold" href="${CAL}" target="_blank" rel="noopener">Book a 20-min call <span class="arr">→</span></a><a class="btn btn-ghost" href="${r}contact.html">Send a message</a><a class="btn btn-ghost" href="https://linkedin.com/in/stuti-gohil" target="_blank" rel="noopener">LinkedIn ↗</a></div></div></section>`;
 
 const tags = (arr, first) => `<div class="tags">${first || ''}${arr.map(t => `<span class="tag">${t}</span>`).join('')}</div>`;
 const statusTag = p => `<span class="tag ${p.status === 'Live' ? 'live' : 'gold'}">${p.status === 'Live' ? '● ' : ''}${p.status}</span>`;
@@ -100,15 +111,15 @@ const pcard = (p, depth = 0) => `<a class="pcard rv" href="${depth ? '' : 'work/
 // ================= HOME =================
 const home = () => layout({
   title: 'Stuti Gohil · AI Engineer & Global AI Consultant', active: 'home',
-  desc: 'AI Engineer and Global AI Consultant. Solo-built production AI products, iOS/Android apps and multi-agent systems for clients in the US, UAE and Europe.',
+  desc: 'AI Engineer who builds AI systems that take manual work off teams: voice agents, document and payment automation, RAG platforms and full AI products, shipped end to end.',
   body: `
 <section class="hero"><div class="aura" style="width:620px;height:620px;right:-120px;top:10%;background:rgba(79,70,229,.09)"></div>
 <div class="wrap hero-grid">
   <div>
-    <div class="avail rv"><span class="pulse"></span>Available for AI engineering roles and global engagements</div>
-    <h1 class="h-xl split">I build and ship <span class="it">production AI</span>, end to end.</h1>
-    <p class="lede rv d2">AI engineer and consultant for founders and teams across the US, UAE, Europe and India. From voice agents and RAG platforms to iOS and Android apps, I own the whole journey: <strong style="color:var(--ink)">discovery, architecture, build, launch</strong>, and training your team to run it.</p>
-    <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="resume.html">Resume</a><a class="btn btn-ghost" href="contact.html">Start a conversation</a></div>
+    <div class="avail rv"><span class="pulse"></span>Open to new AI builds and team roles</div>
+    <h1 class="h-xl split">I build AI systems that take <span class="it">manual work</span> off your team's plate.</h1>
+    <p class="lede rv d2">Voice agents, document and payment automation, RAG platforms and full AI products for companies in the US, UAE, Europe and India. I own the whole journey, <strong style="color:var(--ink)">from the first call to production</strong>, and plug straight into your team.</p>
+    <div class="btns rv d3"><a class="btn btn-gold" href="work.html">View my work <span class="arr">→</span></a><a class="btn btn-ghost" href="${CAL}" target="_blank" rel="noopener">Book a call</a><a class="btn btn-ghost" href="resume.html">Resume</a></div>
     <div class="hero-meta rv d3"><div><b data-count="10">0</b><span>products shipped to production</span></div><div><b>3</b><span>continents: US · UAE · EU</span></div><div><b><span data-count="40">0</span>+</b><span>global certifications</span></div></div>
   </div>
   <div class="globe-wrap rv d2"><div class="globe-fallback"></div><canvas id="globe"></canvas>
@@ -122,12 +133,12 @@ const home = () => layout({
 <div class="marquee"><div class="track">${Array(2).fill(['Sole engineer, end to end', 'iOS · Android · Web', '11-agent AI systems', 'Voice AI agents', 'RAG under 500 ms', 'Custom automations', 'AI training for leaders', 'US · Dubai · Europe · India'].map(t => `<span>${t}</span>`).join('')).join('')}</div></div>
 
 <section class="sec"><div class="wrap">
-  <div class="sec-head"><div><span class="eyebrow">The scoreboard</span><h2 class="h-l split">Results, not responsibilities.</h2></div><p class="lede rv">Every number below comes from a production system I built and shipped.</p></div>
+  <div class="sec-head"><div><span class="eyebrow">The scoreboard</span><h2 class="h-l split">Results, not responsibilities.</h2></div><p class="lede rv">Every number below comes from a live system I built, measured in what it changed for the people using it.</p></div>
   <div class="score rv">
-    <div><b><span data-count="5000">0</span><sup>+</sup></b><p>users on launch day for a CII national event, with zero corrupted records</p></div>
-    <div><b>&lt;<span data-count="500">0</span><sup>ms</sup></b><p>retrieval latency on production RAG systems</p></div>
-    <div><b><span data-count="80">0</span><sup>%</sup></b><p>lighter media payload for a live hypercar app across three continents</p></div>
-    <div><b><span data-count="40">0</span><sup>+ hrs</sup></b><p>QA time saved per release by a self-healing test tool I created</p></div>
+    <div><b><span data-count="5000">0</span><sup>+</sup></b><p>people served on launch day by a national CII event portal, with zero corrupted records</p></div>
+    <div><b>&lt;<span data-count="500">0</span><sup>ms</sup></b><p>for an AI coach to answer founders over SMS, drawing on their full history</p></div>
+    <div><b><span data-count="80">0</span><sup>%</sup></b><p>less data for hypercar-club members to load, fixing the app for users across three continents</p></div>
+    <div><b><span data-count="40">0</span><sup>+ hrs</sup></b><p>QA hours handed back to the team every release by a self-healing test tool</p></div>
   </div>
 </div></section>
 
@@ -150,18 +161,7 @@ const home = () => layout({
     <div class="svc"><span class="n">03</span><h3>RAG &amp; LLM engineering</h3><p>Retrieval that answers in under 500 ms, multi-model routing and grounded answers on your own data.</p><ul><li>pgvector</li><li>Qdrant</li><li>Redis</li><li>GPT-4 · Claude · Gemini</li></ul></div>
     <div class="svc"><span class="n">04</span><h3>Custom automation &amp; AI enablement</h3><p>Automations tailored to how a business really runs, and training that leaves teams able to run and extend them.</p><ul><li>n8n</li><li>Make</li><li>Zapier</li><li>Workshops</li></ul></div>
   </div>
-</div></section>
-
-<section class="sec" style="padding-top:40px"><div class="wrap">
-  <div class="sec-head"><div><span class="eyebrow">How I work</span><h2 class="h-l split">Scratch to production. <span class="it">Alone.</span></h2></div></div>
-  <div class="process rv">
-    <div class="step"><div class="dot">01</div><h4>Discover</h4><p>Client calls, process mapping and the real problem behind the request.</p></div>
-    <div class="step"><div class="dot">02</div><h4>Architect</h4><p>System design, data model, security and the cost/latency trade-offs.</p></div>
-    <div class="step"><div class="dot">03</div><h4>Build</h4><p>Frontend, backend, AI and automations in one pair of hands.</p></div>
-    <div class="step"><div class="dot">04</div><h4>Ship</h4><p>Deploy, monitor, harden and deliver to the live domain or app store.</p></div>
-    <div class="step"><div class="dot">05</div><h4>Hand over</h4><p>Training and documentation until the client runs it themselves.</p></div>
-  </div>
-  <div class="solo-note rv"><span class="solo-ic">${ic('spark')}</span><span>No agency, no team behind the curtain. <b>Every project on this site was delivered by me, solo</b>, for clients in the US, UAE, Europe and India.</span></div>
+  <div class="solo-note rv"><span class="solo-ic">${ic('spark')}</span><span>One accountable owner across the whole lifecycle, from discovery to handover. <b>I have shipped solo, and I plug straight into existing teams</b> for clients in the US, UAE, Europe and India.</span></div>
 </div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap"><div class="feature rv">
@@ -177,8 +177,8 @@ const home = () => layout({
   </div></div></div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap">
-  <div class="sec-head"><div><span class="eyebrow">Credentials</span><h2 class="h-l split">Trained by the institutions that define the field.</h2></div><a class="btn btn-ghost rv" href="credentials.html">View all certificates <span class="arr">→</span></a></div>
-  <div class="issuers rv">${[['Stanford', 'Online'], ['Oracle', 'OCI GenAI Pro'], ['Google', 'Cloud · AI'], ['Microsoft', 'Azure · AI'], ['IBM', 'ML Honors'], ['AWS', 'ML · Cloud'], ['Imperial', 'College London'], ['McKinsey', 'Forward'], ['BCG', 'Data Science'], ['MongoDB', 'Vector Search'], ['Cisco', 'Python'], ['ISRO', 'Certified']].map(([a, b]) => `<div>${logoFor(a)}${a}<small>${b}</small></div>`).join('')}</div>
+  <div class="sec-head"><div><span class="eyebrow">Credentials</span><h2 class="h-l split">Certified across the AI stack.</h2></div><a class="btn btn-ghost rv" href="credentials.html">View all certificates <span class="arr">→</span></a></div>
+  <div class="issuers rv">${[['Stanford', 'Advanced ML'], ['Oracle', 'OCI GenAI Pro'], ['Google', 'Gen AI · RAG'], ['Microsoft', 'Azure GenAI'], ['AWS', 'ML · RAG'], ['DeepLearning.AI', 'LLMs']].map(([a, b]) => `<div>${logoFor(a)}${a}<small>${b}</small></div>`).join('')}</div>
 </div></section>`
 });
 
@@ -203,7 +203,7 @@ const caseStudy = (p, i) => {
     body: `<section class="cs-hero"><div class="aura" style="width:700px;height:600px;right:-200px;top:0;background:rgba(79,70,229,.08)"></div><div class="wrap">
   <div class="crumbs"><a href="../index.html">Home</a> / <a href="../work.html">Work</a> / ${p.title}</div>
   <div class="cs-top"><div><span class="eyebrow">${p.client} · ${p.region} · ${p.year}</span><h1 class="split">${p.title}</h1><p class="lede rv">${p.oneLine}</p></div>
-  <div class="btns rv">${p.live ? `<a class="btn btn-gold" href="${p.live}" target="_blank" rel="noopener">Visit ${p.liveLabel} ↗</a>` : ''}</div></div>
+  <div class="btns rv">${p.live ? `<a class="btn btn-gold" href="${p.live}" target="_blank" rel="noopener">Visit ${p.liveLabel} ↗</a>` : ''}<a class="btn btn-ghost" href="${CAL}" target="_blank" rel="noopener">Discuss a build like this</a></div></div>
   <div class="facts rv"><div><small>Client</small><b>${p.client}</b></div><div><small>Region</small><b>${p.region}</b></div><div><small>My role</small><b>${p.role}</b></div><div><small>Platform</small><b>${p.platform}</b></div><div><small>Status</small><b>${p.status}</b></div></div>
   <div class="stage cs-stage rv">${fit(mockups[p.slug]())}</div>
   <div class="kband rv">${p.kpis.map(k => `<div><b>${k[0]}</b><span>${k[1]}</span></div>`).join('')}</div>
@@ -246,7 +246,7 @@ const consulting = () => layout({
   <div class="crumbs"><a href="index.html">Home</a> / Consulting</div><span class="eyebrow">Global AI Consultant</span>
   <h1 class="h-xl split" style="margin-top:20px">I don't just build AI. <span class="it">I teach leaders to own it.</span></h1>
   <p class="lede rv">At 21–22 I was advising and training film directors and operations managers in Dubai and Europe on AI, custom automations and AI agents: designing their systems, building them, and making sure they could run them without me.</p>
-  <div class="btns rv" style="margin-top:36px"><a class="btn btn-gold" href="contact.html?topic=consulting">Start an engagement <span class="arr">→</span></a></div></div></section>
+  <div class="btns rv" style="margin-top:36px"><a class="btn btn-gold" href="${CAL}" target="_blank" rel="noopener">Book a 20-min call <span class="arr">→</span></a><a class="btn btn-ghost" href="contact.html?topic=consulting">Send a message</a></div></div></section>
 
 <section class="sec" style="padding-top:40px"><div class="wrap"><div class="sec-head"><div><span class="eyebrow">Engagements</span><h2 class="h-l split">Who I've advised</h2></div></div>
   <div class="engage">
@@ -310,7 +310,7 @@ const credentials = () => {
 
   <div class="sec-head"><div><span class="eyebrow">Certificate wall</span><h2 class="h-l split">Click any certificate to view it</h2></div></div>
   <div class="filterbar rv" data-filter-group=".cert">${issuers.map((f, k) => `<button class="${k ? '' : 'on'}" data-f="${f}">${labels[f]}</button>`).join('')}</div>
-  <div class="cert-grid">${certs.filter(c => c[2]).map(([iss, t, img, tg]) => `<div class="cert rv" data-tags="${tg}"><div class="img"><img loading="lazy" src="assets/certs/${img}.jpg" alt="${iss}: ${t} certificate"></div><div class="cap">${logoFor(iss)}<div><small>${iss}</small><b>${t}</b></div></div></div>`).join('')}</div>
+  <div class="cert-grid">${certs.filter(c => c[2]).map(([iss, t, img, tg]) => `<div class="cert rv" data-tags="${tg}"><div class="img"><picture><source srcset="assets/certs/${img}.webp" type="image/webp"><img loading="lazy" decoding="async" src="assets/certs/${img}.jpg" alt="${iss}: ${t} certificate"></picture></div><div class="cap">${logoFor(iss)}<div><small>${iss}</small><b>${t}</b></div></div></div>`).join('')}</div>
 
   <div class="sec-head" style="margin-top:110px"><div><span class="eyebrow">Also certified</span><h2 class="h-m">More credentials</h2></div></div>
   <ul class="cert-list rv">${[...certs.filter(c => !c[2]), ...moreCerts].map(([iss, t]) => `<li>${logoFor(iss)}<div>${t}<span>${iss}</span></div></li>`).join('')}</ul>
@@ -339,6 +339,7 @@ const contact = () => layout({
     </form>
     <div class="cform-ok" id="contact-ok" hidden role="status"><span class="ok-ic">${ic('checkc')}</span><h2>Message received</h2><p>Thank you. You will get a reply within 24 hours. A confirmation is also on its way to your inbox.</p><a class="btn btn-ghost" href="index.html">Back to home</a></div>
     <aside class="cside rv d2">
+      <div class="cbook"><span class="si">${ic('calendar')}</span><b>Prefer to talk?</b><p>Pick a time for a 20-minute intro call.</p><a class="btn btn-gold" href="${CAL}" target="_blank" rel="noopener">Book a call <span class="arr">→</span></a></div>
       <div><span class="si">${ic('clock')}</span><b>Reply within 24 hours</b><p>Every enquiry gets a personal response.</p></div>
       <div><span class="si">${ic('mail')}</span><b>Prefer email?</b><p><a href="mailto:${EMAIL}">${EMAIL}</a></p></div>
       <div><span class="si">${ic('pin')}</span><b>Working globally</b><p>US, UAE, Europe and India.</p></div>
@@ -360,7 +361,8 @@ const resume = () => layout({
 });
 
 // ================= WRITE =================
-const out = (file, html) => { const p = join(ROOT, file); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, html); };
+const pages = [];
+const out = (file, html) => { pages.push(file); const url = `${SITE}/${file === 'index.html' ? '' : file}`; html = html.replaceAll('{{CANON}}', url); const p = join(ROOT, file); mkdirSync(dirname(p), { recursive: true }); writeFileSync(p, html); };
 out('index.html', home());
 out('work.html', work());
 out('consulting.html', consulting());
@@ -368,4 +370,8 @@ out('credentials.html', credentials());
 out('contact.html', contact());
 out('resume.html', resume());
 projects.forEach((p, i) => out(`work/${p.slug}.html`, caseStudy(p, i)));
+// sitemap + robots
+const today = new Date().toISOString().slice(0, 10);
+writeFileSync(join(ROOT, 'sitemap.xml'), `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${pages.map(f => `  <url><loc>${SITE}/${f === 'index.html' ? '' : f}</loc><lastmod>${today}</lastmod></url>`).join('\n')}\n</urlset>\n`);
+writeFileSync(join(ROOT, 'robots.txt'), `User-agent: *\nAllow: /\n\nSitemap: ${SITE}/sitemap.xml\n`);
 console.log(`Built ${6 + projects.length} pages`);

@@ -34,7 +34,7 @@ a{color:inherit;text-decoration:none}
 .lede{font-size:clamp(17px,1.6vw,20px);color:var(--ink-2);max-width:680px;line-height:1.6}
 .muted{color:var(--muted)}
 section{position:relative}
-.sec{padding:140px 0}
+.sec{padding:104px 0}
 .sec-head{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:64px;flex-wrap:wrap}
 .sec-head .h-l{max-width:820px;margin-top:18px}
 .aura{position:absolute;border-radius:50%;pointer-events:none;z-index:-1;-webkit-mask-image:radial-gradient(closest-side,#000 0,transparent 100%);mask-image:radial-gradient(closest-side,#000 0,transparent 100%)}
@@ -163,7 +163,7 @@ section{position:relative}
 .issuers small{display:block;font:11px var(--mono);color:var(--muted);letter-spacing:.06em;margin-top:6px}
 
 /* ---------- CTA / footer ---------- */
-.cta-block{text-align:center;padding:170px 0 150px;overflow:hidden}
+.cta-block{text-align:center;padding:120px 0 110px;overflow:hidden}
 .cta-block .h-xl{max-width:1100px;margin:22px auto 44px}
 .cta-block .btns{justify-content:center}
 footer{border-top:1px solid var(--line);padding:44px 0}
@@ -824,7 +824,7 @@ img,svg,video{max-width:100%}
   .cert-grid{grid-template-columns:1fr 1fr!important}
 }
 @media (max-width:760px){
-  .issuers{grid-template-columns:repeat(4,1fr)}
+  .issuers{grid-template-columns:repeat(3,1fr)}
   .issuers div{padding:10px 4px;font-size:11.5px;gap:6px}
   .issuers .logo{width:34px;height:34px;border-radius:10px}.issuers .logo svg{width:19px;height:19px}
 }
@@ -839,3 +839,14 @@ img,svg,video{max-width:100%}
 .resume-view iframe{display:block;width:100%;height:min(1200px,150vw);min-height:560px;border:0}
 .resume-note{margin-top:18px;font-size:14px;opacity:.75}
 .resume-note a{text-decoration:underline}
+
+/* booking card + keyboard focus */
+.cbook{padding:20px;border:1px solid rgba(79,70,229,.3);border-radius:18px;background:linear-gradient(160deg,rgba(79,70,229,.08),transparent 60%),var(--panel)}
+.cbook .btn{margin-top:12px;justify-self:start}
+:focus{outline:none}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:8px}
+.btn:focus-visible,.cform input:focus-visible,.cform select:focus-visible,.cform textarea:focus-visible{outline-offset:2px}
+.skip{position:absolute;left:12px;top:-60px;z-index:200;padding:10px 16px;border-radius:10px;background:var(--ink);color:var(--bg);font-weight:600}
+.skip:focus{top:12px}
+.cside .btn{color:#fff;border-bottom:0}
+@media (max-width:760px){.hero .btns .btn-ghost{width:auto;flex:1 1 40%;padding:12px 14px}}
