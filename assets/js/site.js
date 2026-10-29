@@ -306,3 +306,25 @@ if (ask) {
   chips?.addEventListener('click', e => { if (e.target.closest('button')) send(e.target.closest('button').textContent); });
   document.querySelectorAll('form[data-ask]').forEach(f => f.addEventListener('submit', e => { e.preventDefault(); const v = f.q.value; f.q.value = ''; v.trim() ? send(v) : open(); }));
 }
+
+// hero product showcase: rotate cards, pause on hover / off screen / reduced motion
+const sc = document.querySelector('.showcase');
+if (sc) {
+  const cards = [...sc.querySelectorAll('.sc-card')], dots = [...sc.querySelectorAll('.sc-dots button')];
+  let front = 0, timer = 0, paused = false, visible = true;
+  const show = k => {
+    front = (k + cards.length) % cards.length;
+    cards.forEach((c, i) => { const pos = (i - front + cards.length) % cards.length; c.dataset.pos = pos; c.tabIndex = pos ? -1 : 0; c.setAttribute('aria-hidden', pos ? 'true' : 'false'); });
+    dots.forEach((d, i) => d.classList.toggle('on', i === front));
+  };
+  const tick = () => { if (!paused && visible && !document.hidden) show(front + 1); };
+  show(0);
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches) timer = setInterval(tick, 4500);
+  sc.addEventListener('pointerenter', () => paused = true);
+  sc.addEventListener('pointerleave', () => paused = false);
+  sc.addEventListener('focusin', () => paused = true);
+  sc.addEventListener('focusout', () => paused = false);
+  dots.forEach((d, i) => d.addEventListener('click', () => show(i)));
+  cards.forEach((c, i) => c.addEventListener('click', e => { if (c.dataset.pos !== '0') { e.preventDefault(); show(i); } }));
+  new IntersectionObserver(es => es.forEach(e => visible = e.isIntersecting)).observe(sc);
+}
