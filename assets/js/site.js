@@ -298,7 +298,7 @@ if (ask) {
     } catch (_) {
       text = `Connection problem. Please try again, or book a call at ${cal}`;
     }
-    bubble.classList.remove('typing'); bubble.innerHTML = linkify(text || 'Sorry, I could not answer that.');
+    bubble.classList.remove('typing'); bubble.innerHTML = linkify(text || `I couldn't load an answer just now. Please try again, or book a 20-minute call with Stuti at ${cal}`);
     if (text) history.push({ role: 'assistant', content: text }); else history.pop();
     busy = false; sendBtn.disabled = false; input.focus();
   }

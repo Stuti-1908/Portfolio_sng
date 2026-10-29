@@ -44,6 +44,7 @@ function cleanMessages(raw) {
 }
 
 export default async function handler(req, res) {
+  if (req.method === 'GET') return res.status(200).json({ ok: true, gemini: Boolean(KEY), model: MODEL }); // health check, no secrets
   if (req.method !== 'POST') { res.setHeader('Allow', 'POST'); return res.status(405).json({ error: 'Method not allowed' }); }
   const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'unknown';
   if (limited(ip)) return res.status(429).json({ error: 'Too many questions in a minute. Please try again shortly.' });
@@ -55,17 +56,22 @@ export default async function handler(req, res) {
   if (!KEY) { res.end(faqAnswer(question)); return; }
 
   let sent = 0;
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), 20_000); // stay well inside the function time limit
   try {
-    const r = await fetch(`${BASE}/v1beta/models/${MODEL}:streamGenerateContent?alt=sse`, {
+    const call = thinking => fetch(`${BASE}/v1beta/models/${MODEL}:streamGenerateContent?alt=sse`, {
       method: 'POST',
+      signal: ctrl.signal,
       headers: { 'Content-Type': 'application/json', 'x-goog-api-key': KEY },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: SYSTEM }] },
         contents: messages.map(m => ({ role: m.role === 'assistant' ? 'model' : 'user', parts: [{ text: m.content }] })),
-        generationConfig: { maxOutputTokens: 1024, temperature: 0.4 },
+        generationConfig: { maxOutputTokens: 2048, temperature: 0.4, ...(thinking ? { thinkingConfig: { thinkingBudget: 0 } } : {}) },
       }),
     });
-    if (!r.ok || !r.body) throw new Error(`gemini ${r.status} ${(await r.text()).slice(0, 200)}`);
+    let r = await call(true);
+    if (r.status === 400) r = await call(false); // model without a thinking budget setting
+    if (!r.ok || !r.body) throw new Error(`gemini ${r.status} ${(await r.text()).slice(0, 300)}`);
     const reader = r.body.getReader(), dec = new TextDecoder();
     let buf = '';
     for (;;) {
@@ -77,14 +83,14 @@ export default async function handler(req, res) {
         const line = buf.slice(0, i).trim(); buf = buf.slice(i + 1);
         if (!line.startsWith('data:')) continue;
         let data; try { data = JSON.parse(line.slice(5)); } catch { continue; }
-        const text = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || '').join('').replace(/\*\*/g, '');
+        const text = (data.candidates?.[0]?.content?.parts || []).filter(p => !p.thought).map(p => p.text || '').join('').replace(/\*\*/g, '');
         if (text) { res.write(text); sent += text.length; }
       }
     }
-    if (!sent) res.write(faqAnswer(question));
+    if (!sent) { console.error('ask error: empty Gemini reply'); res.write(faqAnswer(question)); }
   } catch (err) {
     console.error('ask error', err?.message);
     res.write(sent ? `\n(Answer cut short. Book a call at ${CAL} for details.)` : faqAnswer(question));
-  }
+  } finally { clearTimeout(timer); }
   res.end();
 }
