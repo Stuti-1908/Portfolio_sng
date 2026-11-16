@@ -52,15 +52,15 @@ export const mockups = {
     <div class="anode lock">${ic('lock')} Local-first · Ollama · data never leaves the machine</div></div>`;
   },
 
-  goecoach: () => `<div class="mk stack-layout">
-    ${phone(`<div class="sms-head"><i></i><b>Coach · GoeCoach</b></div><div class="sms-body">
+  relentless: () => `<div class="mk stack-layout">
+    ${phone(`<div class="sms-head"><i></i><b>Coach · Relentless</b></div><div class="sms-body">
       <div class="bub-time">Today 7:02 AM</div>
       <div class="bub them">Morning, Alex. Yesterday you committed to closing the hiring plan. Did it happen?</div>
       <div class="bub me">Half done. Got pulled into investor calls</div>
-      <div class="bub them">Noted. That's the 3rd week investor calls ate your deep work. Want to block 9–11 as no-meeting time?</div>
+      <div class="bub them">Noted. That's the 3rd week investor calls ate your deep work. Want to block 9 to 11 as no-meeting time?</div>
       <div class="bub me">Yes, do it</div>
       <div class="typing"><i></i><i></i><i></i></div></div>`, 'sms')}
-    <div class="stack-col">${fcard('RAG latency', '&lt;500ms', 'pgvector HNSW + Redis')}${fcard('Automated touchpoints', '448+', 'email · SMS · voice')}${fcard('Model router', '3 LLMs', 'GPT-4 · Claude · Gemini')}</div>
+    <div class="stack-col">${fcard('Retrieval', 'RAG', 'pgvector semantic recall')}${fcard('Automated touchpoints', '448+', 'email · SMS · voice')}${fcard('Model router', '3 LLMs', 'GPT-4 · Claude · Gemini')}</div>
   </div>`,
 
   'voice-agent': () => `<div class="mk stack-layout">
